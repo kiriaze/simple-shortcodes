@@ -37,7 +37,7 @@ class Simple_Shortcodes_Class {
 
         // set global
         function HexToRGB($hex, $alpha = null) {
-            $hex = ereg_replace("#", "", $hex);
+            $hex = preg_replace("#", "", $hex);
             $color = array();
             if(strlen($hex) == 3) {
                 $color['r'] = hexdec(substr($hex, 0, 1) . $r);
