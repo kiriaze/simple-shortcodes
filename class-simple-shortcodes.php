@@ -37,7 +37,7 @@ class Simple_Shortcodes_Class {
 
         // set global
         function HexToRGB($hex, $alpha = null) {
-            $hex = preg_replace("#", "", $hex);
+            $hex = preg_replace('/#/i', '', $hex);
             $color = array();
             if(strlen($hex) == 3) {
                 $color['r'] = hexdec(substr($hex, 0, 1) . $r);
@@ -100,7 +100,8 @@ class Simple_Shortcodes_Class {
                     'class'     =>  ''
                 ), $atts ) );
 
-        
+                $html = '';
+
                 // $atts
                 $color      = $color ? $color : '';
                 $size       = $size ? $size : '';
@@ -116,10 +117,10 @@ class Simple_Shortcodes_Class {
                 }
 
                 // icons
+                $icon_type = '';
+                $padding = '';
                 if ($icon != "") { 
                     if ( $content ) $padding = ' style="padding-right: 10px;" ';
-                    
-                    $icon_type = '';
                     $icon_type .= ( $icon ) ? '<i class="' . $icon . '" ' . $padding . ' ></i>' : '' ;
 
                     if ( $class == 'flip' ) {
@@ -131,6 +132,7 @@ class Simple_Shortcodes_Class {
                 if ( !$content ) $class .= ' no-content';
                 
                 // modals
+                $modal = '';
                 if( $modal_id ) {
                     $modal = 'data-modal="'. $modal_id .'"';
                 }
@@ -598,6 +600,7 @@ class Simple_Shortcodes_Class {
                     'type'     =>  ''
                 ), $atts ) );
 
+                $list = '';
                 $list .= "<div class='shortcode-list $type'>";
                 $list .= do_shortcode( $content );
                 $list .= "</div>";
@@ -759,8 +762,7 @@ class Simple_Shortcodes_Class {
                     '' => '',
                 ), $atts));
                 
-                $html = '';
-                $html .= '<br style="display: inline-block; width: 100%; content: \'\';" /><hr />'; // prepending ib fix inline issues
+                $html = '<br style="display: inline-block; width: 100%; content: \'\';" /><hr />'; // prepending ib fix inline issues
 
                 return $html;
             }
@@ -779,8 +781,7 @@ class Simple_Shortcodes_Class {
                     '' => '',
                 ), $atts));
                 
-                $html = '';
-                $html .= '<br />';
+                $html = '<br />';
 
                 return $html;
             }
