@@ -831,7 +831,8 @@ class Simple_Shortcodes_Class {
                     'cat'       =>  '',
                     'count'     => -1,
                     'divider'   => 4,
-                    'slider'    => 'true' // defaults to true: carousel
+                    'slider'    => 'true', // defaults to true: carousel
+                    'class'     => ''
                 ), $atts));
 
                 $count = ($count) ? $count : -1;
@@ -868,7 +869,7 @@ class Simple_Shortcodes_Class {
 
                     $html = '';
 
-                    $html .= '<div data-layout="grid" class="post-type-shortcode">';
+                    $html .= '<div data-layout="grid" class="post-type-shortcode '.$class.'">';
                     $html .= '<ul class="post-type-list'. $slider .'">';
                     $html .= "\n";
 
@@ -898,7 +899,19 @@ class Simple_Shortcodes_Class {
                         
                         $html .= '
                             <footer class="entry-meta">
-                                '. simple_post_meta() .'
+                                '.
+                                apply_filters('simple_post_meta', array(
+                                    'author'        => true,
+                                    'date'          => true,
+                                    'tags'          => true,
+                                    'categories'    => true,
+                                    'wordcount'     => true,
+                                    'reading_time'  => true,
+                                    'views'         => true,
+                                    'comments'      => true,
+                                    'icons'         => true
+                                ))
+                                .'
                             </footer>
                         ';
                         
