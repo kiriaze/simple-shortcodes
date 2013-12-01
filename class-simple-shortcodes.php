@@ -828,12 +828,30 @@ class Simple_Shortcodes_Class {
                     'type'      => 'post', // events, testimonials, etc, and formats as well
                     'format'    => '', // gallery, audio, video, etc. Note: standard doesnt work, setup array if usecase
                     'filter'    => 'recent', // popular, featured, & recent
-                    'cat'       =>  '',
+                    'cat'       => '',
                     'count'     => -1,
                     'divider'   => 4,
                     'slider'    => 'true', // defaults to true: carousel
-                    'class'     => ''
+                    'class'     => '',
+                    'meta'      => array(),
+                    'metalocation'  =>  'footer', // header, footer
+                    'titletag'  => 'h4'
                 ), $atts));
+
+                $metaArr = explode(', ', $meta);
+                $metaVal = array_fill_keys(array_keys(array_flip($metaArr)), 'true');
+
+                $post_meta = apply_filters('simple_post_meta', array(
+                    'author'        => $metaVal['author'],
+                    'date'          => $metaVal['date'],
+                    'tags'          => $metaVal['tags'],
+                    'categories'    => $metaVal['categories'],
+                    'wordcount'     => $metaVal['wordcount'],
+                    'reading_time'  => $metaVal['readingtime'],
+                    'views'         => $metaVal['views'],
+                    'comments'      => $metaVal['comments'],
+                    'icons'         => $metaVal['icons']
+                ));
 
                 $count = ($count) ? $count : -1;
                 $divider = ($divider) ? $divider : 4;
@@ -891,27 +909,17 @@ class Simple_Shortcodes_Class {
                         
                         $html .= '
                             <header>
-                                <h4 class="entry-title">
+                                <'.$titletag.' class="entry-title">
                                     <a href="'. get_permalink($post->ID) .'">'. sprintf( __('%s', 'simple'), get_the_title($post->ID) ) .'</a>
-                                </h4>
+                                </'.$titletag.'>
                             </header>
                         ';
                         
+                        $html .= '<p>'.truncate_text( get_the_excerpt(), 50, simple_excerpt_more() ).'</p>';
+
                         $html .= '
                             <footer class="entry-meta">
-                                '.
-                                apply_filters('simple_post_meta', array(
-                                    'author'        => true,
-                                    'date'          => true,
-                                    'tags'          => true,
-                                    'categories'    => true,
-                                    'wordcount'     => true,
-                                    'reading_time'  => true,
-                                    'views'         => true,
-                                    'comments'      => true,
-                                    'icons'         => true
-                                ))
-                                .'
+                                '.$post_meta.'
                             </footer>
                         ';
                         
