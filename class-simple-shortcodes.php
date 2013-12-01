@@ -221,6 +221,7 @@ class Simple_Shortcodes_Class {
                 if($stacked != "") $stacked = 'stacked';
                 if($align != "") $align = "style='text-align: $align'";
                 if($bg != "") $bg = "background: $bg;";
+                if($bg != "") $class = " has-bg ";
                 if($color != "") $color = "color: $color;";
                 if($size != "") $size = "font-size: $size;";
 
@@ -229,7 +230,7 @@ class Simple_Shortcodes_Class {
                 // add blockquotes to the content
                 $output  = '<div class="callout" '.$align.'>';
                 if($icon != "") :
-                    $output .= '<span class="callout-icon sbg '. $stacked . $type .'" style="'. $bg . $color . $size .'">'.$icon.'</span>';
+                    $output .= '<span class="callout-icon sbg '. $stacked . $type . $class .'" style="'. $bg . $color . $size .'">'.$icon.'</span>';
                 endif;
                 $output .= '<div class="callout-content">';
                 $output .= '<h5 class="callout-content-title">'.$title."</h5>";
@@ -706,12 +707,12 @@ class Simple_Shortcodes_Class {
             function simple_section( $atts, $content = null ) {
                 
                 extract( shortcode_atts( array(
-                    'short'     =>  false,
+                    'tall'      =>  false,
                     'overlay'   =>  false,
                     'color'     =>  '',
                     'ratio'     =>  '',
                     'bg'        =>  '',
-                    'cover'     =>  true,
+                    'cover'     =>  'true',
                     'stellar'   =>  false,
                     'padding'   =>  '',
                     'class'     =>  '' // container, content
@@ -719,9 +720,9 @@ class Simple_Shortcodes_Class {
 
                 $overlay    = $overlay ? ' colored-overlay shadow ' : false;
                 $context    = !$content ? ' no-content ' : '';
-                $short      = $short ? ' short ' : false;
+                $tall      = $tall ? ' large ' : false;
                 $bg         = $bg ? $bg : '';
-                $cover      = $cover ? ' background-size: auto; ' : false;
+                $cover      = ($cover != 'true') ? 'background-size: auto;' : 'background-size: cover; background-repeat: no-repeat; background-position: center;';
                 $stellar    = $stellar ? ' stellar ' : false;
                 $ratio      = $ratio ? $ratio: '0.5';
                 $ratio      = $stellar ? "data-stellar-background-ratio='$ratio'" : '';
@@ -737,7 +738,7 @@ class Simple_Shortcodes_Class {
                 $newColor = 'rgba(' . implode(",", $newColor) .');';
 
                 $html = '';
-                $html .= '<section id="colored-'.$id.'" class="full-width-section' . $stellar . $short . $overlay . $context . $padding . $class . '" '.$ratio.' style="background-image: url('. $bg .'); ' . $newColor . $cover . '">';
+                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $tall . $overlay . $context . $padding . '" '.$ratio.' style="background-image: url('. $bg .'); ' . $newColor . $cover . '">';
                 if ( $color ) {
                     $html .= "<style>.colored-overlay#colored-$id:before{
                                 background-color: $newColor;
@@ -827,6 +828,7 @@ class Simple_Shortcodes_Class {
                     'type'      => 'post', // events, testimonials, etc, and formats as well
                     'format'    => '', // gallery, audio, video, etc. Note: standard doesnt work, setup array if usecase
                     'filter'    => 'recent', // popular, featured, & recent
+                    'cat'       =>  '',
                     'count'     => -1,
                     'divider'   => 4,
                     'slider'    => 'true' // defaults to true: carousel
@@ -841,6 +843,7 @@ class Simple_Shortcodes_Class {
                 $slider = ($slider != 'false') ? ' simple-rcs' : '';
 
                 $tax_query = array('relation' => 'AND');
+
                 if ( $format ) {
                     $format = 'post-format-' . $format;
                     $tax_query[] =  array(
@@ -855,6 +858,7 @@ class Simple_Shortcodes_Class {
                     'post_type'         => $type,
                     'posts_per_page'    => $count,
                     'tag'               => $tag,
+                    'category_name'     => $cat,
                     'tax_query'         => $tax_query
                 );
 
@@ -875,11 +879,14 @@ class Simple_Shortcodes_Class {
 
                         $html .= '<article class="project type-project format-slider" data-columns="'. $divider .'">';
                         $html .= "\n";
-                        $html .= '<a href="'. get_permalink($post->ID) .'">';
-                        $html .= '<figure>';
-                        $html .= '<img src="'. get_stylesheet_directory_uri() .'/assets/images/testing/theme.jpg" />';
-                        $html .= '</figure>';
-                        $html .= '</a>';
+
+                        if( has_post_thumbnail() ) :
+                            $html .= '<a href="'. get_permalink($post->ID) .'">';
+                            $html .= '<figure>';
+                            $html .= '<img src="'. get_stylesheet_directory_uri() .'/assets/images/testing/theme.jpg" />';
+                            $html .= '</figure>';
+                            $html .= '</a>';
+                        endif;
                         
                         $html .= '
                             <header>
@@ -891,8 +898,7 @@ class Simple_Shortcodes_Class {
                         
                         $html .= '
                             <footer class="entry-meta">
-                                <abbr class="published" title="'. get_the_date($post->ID) .'">'. get_the_date($post->ID) .'</abbr>
-                                <span class="meta-date">'. get_the_date($post->ID) .'</span>
+                                '. simple_post_meta() .'
                             </footer>
                         ';
                         
