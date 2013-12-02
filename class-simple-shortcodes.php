@@ -221,7 +221,7 @@ class Simple_Shortcodes_Class {
                 if($stacked != "") $stacked = 'stacked';
                 if($align != "") $align = "style='text-align: $align'";
                 if($bg != "") $bg = "background: $bg;";
-                if($bg != "") $class = " has-bg ";
+                $class = $bg != "" ? " has-bg " : '';
                 if($color != "") $color = "color: $color;";
                 if($size != "") $size = "font-size: $size;";
 
@@ -833,7 +833,7 @@ class Simple_Shortcodes_Class {
                     'divider'   => 4,
                     'slider'    => 'true', // defaults to true: carousel
                     'class'     => '',
-                    'meta'      => array(),
+                    'meta'      => '',
                     'metalocation'  =>  'footer', // header, footer
                     'titletag'  => 'h4'
                 ), $atts));
