@@ -310,7 +310,23 @@ class Simple_Shortcodes_Class {
         // A C C O R D I O N S
         ////////////////////////////////////
         if ( !function_exists('simple_accordion') ) {
-            function simple_accordion( $atts, $content = null ) {
+            function simple_accordion( $atts, $content = null ){
+                extract( shortcode_atts( array( 
+                    ''  =>  ''
+                ), $atts ) );
+                
+                $html .= '<div class="accordion">';
+                $html .= do_shortcode( $content);
+                $html .= '</div>';
+                
+                return $html;
+
+            }
+            add_shortcode( 'accordion', 'simple_accordion' );
+        }
+
+        if ( !function_exists('simple_accordion_panel') ) {
+            function simple_accordion_panel( $atts, $content = null ) {
                 extract(shortcode_atts(array(
                     'title'      => 'Title goes here',
                     'state'      => 'closed'
@@ -318,7 +334,7 @@ class Simple_Shortcodes_Class {
 
                 return "<div data-id='".$state."' class=\"simple-accordion\"><span class=\"simple-accordion-title\">". $title ."</span><div class=\"simple-accordion-inner\"><div class=\"target\">". do_shortcode( $content ) ."</div></div></div>";
             }
-            add_shortcode('accordion', 'simple_accordion');
+            add_shortcode('panel', 'simple_accordion_panel');
         }
 
 
