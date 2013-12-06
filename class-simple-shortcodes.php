@@ -754,7 +754,7 @@ class Simple_Shortcodes_Class {
                 $newColor = 'rgba(' . implode(",", $newColor) .');';
 
                 $html = '';
-                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $tall . $overlay . $context . $padding . '" '.$ratio.' style="background-image: url('. $bg .'); ' . $newColor . $cover . '">';
+                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $tall . $overlay . $context . $padding . '" '.$ratio.' data-stellar-offset-parent="true" style="background-image: url('. $bg .'); ' . $newColor . $cover . '">';
                 if ( $color ) {
                     $html .= "<style>.colored-overlay#colored-$id:before{
                                 background-color: $newColor;
