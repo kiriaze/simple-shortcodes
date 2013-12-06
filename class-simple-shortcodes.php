@@ -858,15 +858,15 @@ class Simple_Shortcodes_Class {
                 $metaVal = array_fill_keys(array_keys(array_flip($metaArr)), 'true');
 
                 $post_meta = apply_filters('simple_post_meta', array(
-                    'author'        => $metaVal['author'],
-                    'date'          => $metaVal['date'],
-                    'tags'          => $metaVal['tags'],
-                    'categories'    => $metaVal['categories'],
-                    'wordcount'     => $metaVal['wordcount'],
-                    'reading_time'  => $metaVal['readingtime'],
-                    'views'         => $metaVal['views'],
-                    'comments'      => $metaVal['comments'],
-                    'icons'         => $metaVal['icons']
+                    'author'        => isset($metaVal['author']),
+                    'date'          => isset($metaVal['date']),
+                    'tags'          => isset($metaVal['tags']),
+                    'categories'    => isset($metaVal['categories']),
+                    'wordcount'     => isset($metaVal['wordcount']),
+                    'reading_time'  => isset($metaVal['readingtime']),
+                    'views'         => isset($metaVal['views']),
+                    'comments'      => isset($metaVal['comments']),
+                    'icons'         => isset($metaVal['icons'])
                 ));
 
                 $count = ($count) ? $count : -1;
@@ -897,6 +897,8 @@ class Simple_Shortcodes_Class {
                     'tax_query'         => $tax_query
                 );
 
+                global $post;
+
                 $posts = new WP_Query($args);
 
                 if ( $posts->have_posts() ) : 
@@ -915,10 +917,10 @@ class Simple_Shortcodes_Class {
                         $html .= '<article class="project type-project format-slider" data-columns="'. $divider .'">';
                         $html .= "\n";
 
-                        if( has_post_thumbnail() ) :
+                        if( has_post_thumbnail($post->ID) ) :
                             $html .= '<a href="'. get_permalink($post->ID) .'">';
                             $html .= '<figure>';
-                            $html .= '<img src="'. get_stylesheet_directory_uri() .'/assets/images/testing/theme.jpg" />';
+                            $html .= '<img src="'. get_template_directory_uri() .'/assets/images/member.png" />';
                             $html .= '</figure>';
                             $html .= '</a>';
                         endif;
