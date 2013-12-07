@@ -4,5 +4,4 @@ assets
 config
 config.rb
 Gemfile
-Gemfile.lock
 Guardfile
