@@ -177,6 +177,8 @@ class Simple_Shortcodes_Class {
                 if($size) $font_size = 'font-size: '. $size .';';
                 if($color) $font_color = 'color: '. $color .';';
 
+                $simple_icon = '';
+
                 if ( $size || $color ) :
                     $simple_icon = '<style>
                         .'.$class.'.inline-sc:before { 
@@ -875,7 +877,7 @@ class Simple_Shortcodes_Class {
                 $tag = ($filter == 'featured') ? 'featured' : '';
                 $order = ($filter == 'recent') ? 'DESC' : '';
                 
-                $slider = ($slider != 'false') ? ' simple-rcs' : '';
+                $sliderClass = ($slider != 'false') ? ' carousel' : '';
 
                 $tax_query = array('relation' => 'AND');
 
@@ -897,6 +899,20 @@ class Simple_Shortcodes_Class {
                     'tax_query'         => $tax_query
                 );
 
+                ?>
+
+                <script>
+                    jQuery(window).load(function(){
+                        // owl.js is in child theme..
+                        if(!jQuery('.carousel').length) return;
+                        jQuery('.carousel').owlCarousel({
+                            items : <?php echo $divider; ?>
+                        });
+                    })
+                </script>
+
+                <?php
+
                 global $post;
 
                 $posts = new WP_Query($args);
@@ -905,16 +921,19 @@ class Simple_Shortcodes_Class {
 
                     $html = '';
 
-                    $html .= '<div data-layout="grid" class="post-type-shortcode '.$class.'">';
-                    $html .= '<ul class="post-type-list'. $slider .'">';
+                    // if sliders disabled, structure grid for posts
+                    $grid = ($slider != 'false') ? '' : ' data-layout="grid"';
+                    $columns = ($slider != 'false') ? '' : ' data-columns="'.$divider.'"';
+
+                    $html .= '<ul'. $grid .' class="post-type-shortcode'. $sliderClass .$class .'">';
                     $html .= "\n";
 
-                    //  each li holds 3 articles
-                    $html .= '<li class="simple-content-slide" data-layout="grid">';
-
                     while( $posts->have_posts() ) : $posts->the_post();
+                        $postClasses = get_post_class();
 
-                        $html .= '<article class="project type-project format-slider" data-columns="'. $divider .'">';
+                        // sp($postClasses);
+                        $classes = implode(' ',$postClasses);
+                        $html .= '<li class="'.$classes.'" '.$columns.'>';
                         $html .= "\n";
 
                         if( has_post_thumbnail($post->ID) ) :
@@ -941,18 +960,8 @@ class Simple_Shortcodes_Class {
                             </footer>
                         ';
                         
-                        $html .= '</article>';
+                        $html .= '</li>';
                         $html .= "\n";
-
-                        $current_position = $posts->current_post + 1; // current_post starts at 0 
-
-                        if( $current_position < $posts->found_posts && $current_position % $divider == 0 ) : 
-
-                            // if position is equal to the divider and not the last result close the currently open div and start another
-                            $html .= '</li>';
-                            $html .= '<li class="simple-content-slide" data-layout="grid">';
-
-                        endif;
 
                     endwhile;
 
@@ -965,7 +974,6 @@ class Simple_Shortcodes_Class {
 
                     endif;
 
-                    $html .= '</li>';
                     $html .= '</ul>';
                     $html .= '</div>';
 
@@ -986,8 +994,8 @@ class Simple_Shortcodes_Class {
 
     //  Shortcode Scripts / Styles
     function load_scripts() {
-        wp_enqueue_style( 'shortcodes-css', plugins_url( 'assets/css/min.css', __FILE__ ) );        
-        wp_enqueue_script( 'shortcodes-js', plugins_url( 'assets/js/min.js', __FILE__ ), array('jquery'), '', true );
+        wp_enqueue_style( 'shortcodes-css', plugins_url( 'public/css/main.css', __FILE__ ) );        
+        wp_enqueue_script( 'shortcodes-js', plugins_url( 'public/js/min.js', __FILE__ ), array('jquery'), '', true );
     }
 
 }

@@ -1,0 +1,6 @@
+.DS_Store
+.sass-cache/
+assets/
+config.rb
+Gemfile
+Guardfile
