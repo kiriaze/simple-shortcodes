@@ -1,7 +1,9 @@
-.DS_Store
+.DS_Store?
+Thumbs.db
 .sass-cache/
-assets
-config
+assets/
+config/
 config.rb
 Gemfile
+Gemfile.lock
 Guardfile
