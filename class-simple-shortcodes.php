@@ -475,7 +475,7 @@ class Simple_Shortcodes_Class {
         // V I D E O - P L A Y E R
         ////////////////////////////////////
         if ( !function_exists('simple_video_shortcode') ) {
-            function simple_video_shortcode( $atts, $content = null ) {
+            function simple_video_shortcode( $atts ) {
                 extract( shortcode_atts( array(
                     'src'   =>  '',
                     'mp4'   =>  ''  // default wp behavior
@@ -500,7 +500,7 @@ class Simple_Shortcodes_Class {
         // A U D I O - P L A Y E R
         ////////////////////////////////////
         if ( !function_exists('simple_audio_shortcode') ) {
-            function simple_audio_shortcode( $atts, $content = null ) {
+            function simple_audio_shortcode( $atts ) {
                 extract( shortcode_atts( array(
                     'src'   =>  '',
                     'mp4'   =>  ''  // default wp behavior
@@ -523,91 +523,96 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         // M A P
         ////////////////////////////////////
-        // global $google_map_script_code;
-        // function creativ_shortcodes_map($atts, $content = null) {
-        //     global $google_map_script_code;
+        if ( !function_exists('simple_shortcodes_map') ) {
             
-        //     /* Set up variables */
-        //     extract(shortcode_atts(array(
-        //         'latitude' => '', 
-        //         'longitude' => '', 
-        //         'width' => '100%', 
-        //         'height' => '400px', 
-        //         'zoom' => '16',
-        //         'infowindow_text' => ''
-        //     ), $atts));
+            global $google_map_script_code;
+            
+            function simple_shortcodes_map($atts) {
                 
-        //     $google_map_code = "";
-            
-        //     if( strpos($height, 'px') || strpos($height, '%') ) { } else {
-        //         $height = $height.'px';
-        //     }
-        //     if( strpos($width, 'px') || strpos($width, '%') ) { } else {
-        //         $width = $width.'px';
-        //     }
-            
-        //     $infowindow_text = '<p>'.$infowindow_text.'</p>';
-            
-        //     $content_map_id = "content_map_".rand();
+                global $google_map_script_code;
+                
+                extract( shortcode_atts( array(
+                    'latitude'          => '', 
+                    'longitude'         => '', 
+                    'width'             => '100%', 
+                    'height'            => '400px', 
+                    'zoom'              => '16',
+                    'infowindow_text'   => ''
+                ), $atts ) );
+                    
+                $google_map_code = "";
+                
+                if( strpos($height, 'px') || strpos($height, '%') ) { 
+
+                } else {
+                    $height = $height.'px';
+                }
+                if( strpos($width, 'px') || strpos($width, '%') ) { 
+
+                } else {
+                    $width = $width.'px';
+                }
+                
+                $infowindow_text = '<p>'.$infowindow_text.'</p>';
+                
+                $content_map_id = "content_map_".rand();
+
+                $google_map_code .= '<div id="'.$content_map_id.'" class="simple-shortcode-map" style="width:'.$width.';height:'.$height.';"></div>';
+                            
+                $google_map_script_code .= "
+                <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+                <script type='text/javascript'>
+                    (function($){
+                        var myLatlng = new google.maps.LatLng(".$latitude.",".$longitude.");
+                        var mapOptions = {
+                            zoom: ".$zoom.",
+                            center: myLatlng,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        }
+                
+                        var map = new google.maps.Map(document.getElementById('".$content_map_id."'), mapOptions);
                         
-        //         $google_map_script_code .= "<script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
-        //         <script type='text/javascript'>
-        //           jQuery(function() {
-        //             var myLatlng = new google.maps.LatLng(".$latitude.",".$longitude.");
-        //             var mapOptions = {
-        //               zoom: ".$zoom.",
-        //               center: myLatlng,
-        //               mapTypeId: google.maps.MapTypeId.ROADMAP
-        //             }
-            
-        //             var map = new google.maps.Map(document.getElementById('".$content_map_id."'), mapOptions);
+                        var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map,
+                            title: ''
+                        });";
+                        
+                        if($infowindow_text) {
+
+                            $google_map_script_code .= "
+                            var contentString = '".$infowindow_text."';
                     
-        //             var marker = new google.maps.Marker({
-        //                 position: myLatlng,
-        //                 map: map,
-        //                 title: ''
-        //             });";
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString
+                            });
+                            
+                            google.maps.event.addListener(marker, 'click', function() {
+                              infowindow.open(map,marker);
+                            });";       
+                        }
                     
-        //     if($infowindow_text) {
-            
-        //             $google_map_script_code .= "
-        //             var contentString = '".$infowindow_text."';
-            
-        //             var infowindow = new google.maps.InfoWindow({
-        //                 content: contentString
-        //             });
+                    $google_map_script_code .= " 
+                    })(jQuery)
+                </script>";
                     
-        //             google.maps.event.addListener(marker, 'click', function() {
-        //               infowindow.open(map,marker);
-        //             });";
-                    
-        //     }
-                    
-        //           $google_map_script_code .= " 
-        //           });
-        //         </script>";
+                return $google_map_code;
+
+            }
+            add_shortcode('map', 'simple_shortcodes_map');
+
+            /* Add Google Map Code to Footer */
+            function add_google_map_code() { 
+                global $google_map_script_code;
+                if( isset($google_map_script_code) ) {
+                    if($google_map_script_code) { 
+                        echo $google_map_script_code;
+                    }       
+                }
                 
-        //         $google_map_code .= '<div id="'.$content_map_id.'" class="creativ-shortcode-map" style="width:'.$width.';height:'.$height.';"></div>';
-                
-        //     return $google_map_code;
-
-        // }
-        // add_shortcode('creativ_map', 'creativ_shortcodes_map');
-
-
-
-        // /* Add Google Map Code to Footer */
-        // function add_google_map_code() { 
-        //     global $google_map_script_code;
-        //     if(isset($google_map_script_code)) {
-        //         if($google_map_script_code) { 
-        //             echo $google_map_script_code;
-        //         }       
-        //     }
-            
-        // }
-        // add_action('wp_footer', 'add_google_map_code');
-
+            }
+            add_action('wp_footer', 'add_google_map_code', 100);
+        }
 
 
         ////////////////////////////////////
@@ -628,6 +633,28 @@ class Simple_Shortcodes_Class {
                 
             }
             add_shortcode( 'list', 'simple_lists' );
+        }
+
+
+        ////////////////////////////////////
+        // C L I E N T S
+        ////////////////////////////////////
+        if ( !function_exists('simple_client_list') ) {
+            function simple_client_list( $atts, $content = null ){
+                extract( shortcode_atts( array( 
+                    'type'      =>  '', // list, grid, slider
+                    'class'     =>  '', // specific for styling/js
+                ), $atts ) );
+
+                $list = '';
+                $list .= "<div class='client-list $type $class'>";
+                $list .= do_shortcode( $content );
+                $list .= "</div>";
+
+                return $list;
+                
+            }
+            add_shortcode( 'clients', 'simple_client_list' );
         }
         
 
@@ -845,7 +872,7 @@ class Simple_Shortcodes_Class {
                 extract(shortcode_atts(array(
                     'type'      => 'post', // events, testimonials, etc, and formats as well
                     'format'    => '', // gallery, audio, video, etc. Note: standard doesnt work, setup array if usecase
-                    'filter'    => 'recent', // popular, featured, & recent
+                    'filter'    => 'recent', // popular, featured, related & recent
                     'cat'       => '',
                     'count'     => -1,
                     'divider'   => 4,
@@ -855,6 +882,8 @@ class Simple_Shortcodes_Class {
                     'metalocation'  =>  'footer', // header, footer
                     'titletag'  => 'h4'
                 ), $atts));
+
+                global $post;
 
                 $metaArr = explode(', ', $meta);
                 $metaVal = array_fill_keys(array_keys(array_flip($metaArr)), 'true');
@@ -874,9 +903,15 @@ class Simple_Shortcodes_Class {
                 $count = ($count) ? $count : -1;
                 $divider = ($divider) ? $divider : 4;
 
-                $tag = ($filter == 'featured') ? 'featured' : '';
-                $order = ($filter == 'recent') ? 'DESC' : '';
+                $tag        = ($filter == 'featured') ? 'featured' : '';
+                $order      = ($filter == 'recent') ? 'DESC' : '';
+                $popular    = ($filter == 'popular') ? '' : ''; // hook into simple_likes
+                $related    = ($filter == 'related') ? true : false;
                 
+                if ( $related ) {
+                    $type = get_post_type();
+                }
+
                 $sliderClass = ($slider != 'false') ? ' carousel' : '';
 
                 $tax_query = array('relation' => 'AND');
@@ -899,21 +934,50 @@ class Simple_Shortcodes_Class {
                     'tax_query'         => $tax_query
                 );
 
-                ?>
+                if ( $related ) {
 
-                <script>
-                    jQuery(window).load(function(){
-                        // owl.js is in child theme..
-                        if(!jQuery('.carousel').length) return;
-                        jQuery('.carousel').owlCarousel({
-                            items : <?php echo $divider; ?>
-                        });
-                    })
-                </script>
+                    $taxonomy = 'work_types';
 
-                <?php
+                    $tags       = wp_get_post_tags($post->ID);
+                    $categories = get_the_category($post->ID);
+                    $terms      = wp_get_post_terms($post->ID, $taxonomy);
+                      
+                    if ($tags) {  
+                        $tag_ids = array();  
+                        foreach( $tags as $individual_tag ) $tag_ids[] = $individual_tag->term_id;
+                        $relatedArgs = array(
+                            'tag__in'       => $tag_ids,
+                            'post__not_in'  => array($post->ID),
+                        );
+                    }
 
-                global $post;
+                    if ($categories) {
+                        $category_ids = array();
+                        foreach($categories as $individual_category) $category_ids[] = $individual_category->term_id;
+                        $relatedArgs = array(
+                            'category__in' => $category_ids,
+                            'post__not_in' => array($post->ID),
+                        );
+                    }
+
+                    if ($terms) {
+                        $term_ids = array();  
+                        foreach( $terms as $individual_term ) $term_ids[] = $individual_term->term_id;  
+                        $relatedArgs = array(
+                            'tax_query' => array(
+                                array(
+                                    'taxonomy'  => $taxonomy,
+                                    'field'     => 'id',
+                                    'terms'     => $term_ids,
+                                    'operator'  => 'IN'
+                                )
+                            ),
+                            'post__not_in' => array($post->ID)
+                        );
+                    }
+
+                    $args = array_merge($args, $relatedArgs);
+                }
 
                 $posts = new WP_Query($args);
 
@@ -925,7 +989,7 @@ class Simple_Shortcodes_Class {
                     $grid = ($slider != 'false') ? '' : ' data-layout="grid"';
                     $columns = ($slider != 'false') ? '' : ' data-columns="'.$divider.'"';
 
-                    $html .= '<ul'. $grid .' class="post-type-shortcode'. $sliderClass .$class .'">';
+                    $html .= '<ul'. $grid .' class="post-type-shortcode'. $sliderClass . ' ' . $class .'" data-items="'.$divider.'">';
                     $html .= "\n";
 
                     while( $posts->have_posts() ) : $posts->the_post();
@@ -939,7 +1003,7 @@ class Simple_Shortcodes_Class {
                         if( has_post_thumbnail($post->ID) ) :
                             $html .= '<a href="'. get_permalink($post->ID) .'">';
                             $html .= '<figure>';
-                            $html .= '<img src="'. get_template_directory_uri() .'/assets/images/member.png" />';
+                            $html .= the_post_thumbnail();
                             $html .= '</figure>';
                             $html .= '</a>';
                         endif;
