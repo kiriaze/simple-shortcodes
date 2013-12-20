@@ -402,10 +402,13 @@ class Simple_Shortcodes_Class {
             function simple_columns( $atts, $content = null ) {
              
                 extract( shortcode_atts( array(
-                    'span'  =>  '1'
+                    'span'      => '1',
+                    'center'    => false
                 ), $atts ) );
 
-                $output = '<div data-columns="'. $span .'">' . do_shortcode( $content ) . '</div>';
+                $center = $center ? ' class="center"' : false;
+
+                $output = '<div data-columns="'. $span .'"'.$center.'>' . do_shortcode( $content ) . '</div>';
 
                 return apply_filters( 'simple_columns', $output );
              
