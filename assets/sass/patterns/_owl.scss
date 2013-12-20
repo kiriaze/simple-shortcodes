@@ -1,0 +1,22 @@
+.owl-theme .owl-controls .owl-buttons div {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	color: #aaa;
+	i {
+		font-size: 3rem;
+	}
+}
+ 
+.owl-theme .owl-controls .owl-buttons .owl-prev{
+	left: -8%;
+}
+ 
+.owl-theme .owl-controls .owl-buttons .owl-next{
+	right: -8%;
+}
+
+.owl-carousel .owl-item {
+	text-align: center;
+}
