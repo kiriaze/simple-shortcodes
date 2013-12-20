@@ -1,0 +1,230 @@
+/* ============================================
+    S I M P L E 
+
+
+ * The template is for rendering single's.
+ *
+ * @package     Simple
+ * @version     1.0
+ * @author      Constantine Kiriaze
+ * @website     github.com/kiriaze/simple        
+
+    Browsers: ie9, ie10, ie11, FF, Safari, Chrome
+    
+    Dependancies :
+
+        Variables below defined in _base.scss
+    
+            $container-class: '.foo';
+            $column-class: '.bar';
+            $space: 2; // % of spacing between columns
+            $count: 4; // default number of columns in grid
+            $number-of-columns: 6; //  @for loop class declarations
+            $base-width: 960px; // $super-width, $base-width, $tablet-width, $mobile-portrait-width, $mobile-landscape-width
+            breakpoint mixins
+
+============================================ */
+
+// Grid check
+$gridDebug: false;
+
+/*  Set box sizing
+============================================ */
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
+/*  Center Block
+============================================ */
+%center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*  Inline Block - universally used
+============================================ */
+@mixin column() {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    z-index: 0; // supposed fix for webkit font jitters
+
+    font-size: 1rem; // reset
+    text-align: left; // reset
+
+    @if( $gridDebug == true ) {
+        background: orange; // testing purposes
+    }
+}
+
+%ib {
+    @include column();
+}
+
+/*  Grid Functions
+============================================ */
+@function column-width($num, $width) {
+    @return ( $width / $num );
+}
+
+@function third-width($num, $width) {
+    @return $num * ( $width / 3 );
+}
+
+/*  Grid Mixins
+============================================ */
+// number of columns, space percent margins
+// $space set globally, can be redeclared inline
+@mixin columns($num, $space:($space)) {
+    
+    @include column();
+
+    $docWidth: 100%;
+    $space: ($space*1%);
+    
+    @if(round($num) == $num) { // if whole number for even # cols
+        width: column-width($num, $docWidth) - $space;
+    }@else{ // for mixed width cols
+        width: ($num * $docWidth) - $space;
+    }
+
+    // target last column in row
+    &:nth-child(#{$num}n) {
+        @if($num == 1){
+            width: $docWidth/$num;
+        }
+    }
+
+    // full columns
+    @include breakpoint(small) {
+        width: $docWidth;
+        &:nth-child(#{round($num)}n){ // rounded since its invalid for mixed cols, like nth-child(.5)
+            width: $docWidth;
+        }
+    }
+
+}
+
+@mixin third($num, $space:$space) {
+
+    @include column();
+
+    width: third-width($num, 100%) - ($space*1%);
+
+    // target last column in row
+    &:nth-child(#{$num}n) {
+
+    }
+
+}
+
+@mixin grid($count:$count){ // set default column globally, can be overriden
+    
+    @if( $gridDebug == true ) {
+        background: peachpuff; // testing purposes
+    }
+
+    // Future...
+    // display: flex;
+    // flex-flow: row wrap;
+    // justify-content: space-between;
+
+
+    text-align: justify;
+    
+    // hide whitespace between elements. required if flush needed, e.g. col width: 25% with no margins
+    font-size: 0.1px; // 0px for ff, 0.1px for ie..
+
+    max-width: $base-width;
+
+    @include breakpoint(large) {
+        max-width: $super-width;
+    }
+    @include breakpoint(medium) {
+        max-width: $tablet-width;
+    }
+    @include breakpoint(small) {
+        max-width: $mobile-landscape-width;
+    }
+
+    margin: 0 auto;     // optional
+    
+    &:after{
+        content: '';
+        display: inline-block;
+        width: 100%;
+    }
+    
+    [data-columns],
+    #{$column-class}{
+        // default number of columns if not specified
+        @include columns($count); // experimental
+        // usage: by default would set this to 4 columns
+        // note: a class or data attr is required
+        // <div class="{$container-class}" data-layout="grid">
+        //      <div class="{$column-class}" data-columns=""></div>
+        //      <div class="{$column-class}" data-columns=""></div>
+        //      <div class="{$column-class}" data-columns=""></div>
+        //      <div class="{$column-class}" data-columns=""></div>
+        // </div>
+    }
+
+}
+
+
+/* Class and Data delegations
+============================================ */
+
+//  usage :
+//  <div data-layout="grid">
+//      <div data-columns="2"></div>
+//      <div data-columns="2"></div>
+//  </div>
+
+// universal class for column container
+[data-layout='grid'],
+#{$container-class} {
+
+    @include grid();
+
+    font-size: 1rem;
+
+    [data-layout='grid'],
+    #{$container-class} {
+        font-size: 0.1px; // when nested, say inside wysiwyg for columns, flushes them
+    }
+
+    [data-columns],
+    #{$column-class} {
+
+        @for $i from 1 through $number-of-columns {
+            &[data-columns='#{$i}'],
+            &#{#{$column-class}-#{$i}}{
+                @include columns($i);
+            }
+        }
+
+        // Percentages for mixed widths
+        @for $i from 1 through 10 {
+            &[data-columns='.#{$i}'],
+            &#{#{$column-class}-#{$i}0}{
+                @include columns($i/10);
+            }
+        }
+
+        &.center-block {
+            @extend %center-block;
+            // set width to center
+            width: 50%;
+            text-align: center;
+        }
+
+    }
+    
+    // hack if not enough items in row. # of fillers = max cols in row - 2
+    .filler {
+        @include column();
+    }
+
+}
