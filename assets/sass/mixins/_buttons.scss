@@ -1,0 +1,31 @@
+/*	Buttons
+============================================ */
+@mixin btn($color:null) {
+    @extend %ib;
+    background: $color;
+    color: white;
+    padding: .5em 1.5em; // relative to button font size
+    @include font-size(16, 1.5);
+    @include border-radius(2px);
+    
+    // override <button>'s
+    border: none;
+    cursor: pointer;
+    
+    &:hover{
+        background: darken($color, 10);
+        color: white;
+    }
+    &.inverted{
+        color: invert(white);
+        background: $light-grey;
+        &:hover{
+            background: $dark-grey;
+            color: white;
+        }
+    }
+}
+
+%btn {
+    @include btn($theme-color);
+}
