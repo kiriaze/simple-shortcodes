@@ -384,7 +384,7 @@
 
         $.each(SC.elems.slider, function(index, item) {
 
-            var effect = $(item).data('slider') ? $(item).data('slider') : false;
+            var effect = $(item).data('slider') ? $(item).data('slider') : 'slide';
 
             $(item).owlCarousel({
                 singleItem : true,
@@ -412,7 +412,7 @@
                 addClassActive : true,
             });
             
-        });
+        })
 
     }
 
