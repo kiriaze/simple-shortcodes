@@ -1,6 +1,6 @@
 .DS_Store
 .sass-cache/
-#assets/
+assets/
 config/
 config.rb
 Gemfile
