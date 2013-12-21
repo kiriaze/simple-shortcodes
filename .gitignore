@@ -1,7 +1,7 @@
 .DS_Store
 Thumbs.db
 .sass-cache/
-#assets/
+assets/
 config/
 config.rb
 Gemfile
