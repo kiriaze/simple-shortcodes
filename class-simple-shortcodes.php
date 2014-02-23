@@ -1006,7 +1006,7 @@ class Simple_Shortcodes_Class {
                         if( has_post_thumbnail($post->ID) ) :
                             $html .= '<a href="'. get_permalink($post->ID) .'">';
                             $html .= '<figure>';
-                            $html .= the_post_thumbnail();
+                            $html .= get_the_post_thumbnail($post->ID);
                             $html .= '</figure>';
                             $html .= '</a>';
                         endif;
