@@ -876,12 +876,12 @@ class Simple_Shortcodes_Class {
                     'type'      => 'post', // events, testimonials, etc, and formats as well
                     'format'    => '', // gallery, audio, video, etc. Note: standard doesnt work, setup array if usecase
                     'filter'    => 'recent', // popular, featured, related & recent
-                    'cat'       => '',
+                    'cat'       => '', // category
                     'count'     => -1,
                     'divider'   => 4,
                     'slider'    => 'true', // defaults to true: carousel
-                    'class'     => '',
-                    'meta'      => '',
+                    'class'     => '', // ul class
+                    'meta'      => '', // author, tags, etc
                     'metalocation'  =>  'footer', // header, footer
                     'titletag'  => 'h4'
                 ), $atts));
