@@ -36,23 +36,25 @@ class Simple_Shortcodes_Class {
     function shortcodes_init() {
 
         // set global
-        function HexToRGB($hex, $alpha = null) {
-            $hex = preg_replace('/#/i', '', $hex);
-            $color = array();
-            if(strlen($hex) == 3) {
-                $color['r'] = hexdec(substr($hex, 0, 1) . $r);
-                $color['g'] = hexdec(substr($hex, 1, 1) . $g);
-                $color['b'] = hexdec(substr($hex, 2, 1) . $b);
-                $color['a'] = $alpha ? $alpha : '1';
+        if ( !function_exists('HexToRGB') ):
+            function HexToRGB($hex, $alpha = null) {
+                $hex = preg_replace('/#/i', '', $hex);
+                $color = array();
+                if(strlen($hex) == 3) {
+                    $color['r'] = hexdec(substr($hex, 0, 1) . $r);
+                    $color['g'] = hexdec(substr($hex, 1, 1) . $g);
+                    $color['b'] = hexdec(substr($hex, 2, 1) . $b);
+                    $color['a'] = $alpha ? $alpha : '1';
+                    }
+                else if(strlen($hex) == 6) {
+                    $color['r'] = hexdec(substr($hex, 0, 2));
+                    $color['g'] = hexdec(substr($hex, 2, 2));
+                    $color['b'] = hexdec(substr($hex, 4, 2));
+                    $color['a'] = $alpha ? $alpha : '1';
                 }
-            else if(strlen($hex) == 6) {
-                $color['r'] = hexdec(substr($hex, 0, 2));
-                $color['g'] = hexdec(substr($hex, 2, 2));
-                $color['b'] = hexdec(substr($hex, 4, 2));
-                $color['a'] = $alpha ? $alpha : '1';
+                return $color;
             }
-            return $color;
-        }
+        endif;
 
 
         add_filter('widget_text', 'shortcode_unautop', 10);
