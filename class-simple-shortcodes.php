@@ -661,6 +661,31 @@ class Simple_Shortcodes_Class {
             }
             add_shortcode( 'clients', 'simple_client_list' );
         }
+
+
+        ////////////////////////////////////
+        // S T A T S
+        ////////////////////////////////////
+        if ( !function_exists('simple_stats') ) {
+            function simple_stats( $atts, $content = null ){
+                extract( shortcode_atts( array( 
+                    'type'      =>  '', // list, grid, slider
+                    'class'     =>  '', // specific for styling/js
+                    'total'     =>  '',
+
+                ), $atts ) );
+
+                $stats = "";
+                $stats .= "<div class='stat-block $type $class'>";
+                $stats .= "<span class='scrollstat' data-total='$total'>$total</span>";
+                $stats .= do_shortcode( $content );
+                $stats .= "</div>";
+
+                return $stats;
+                
+            }
+            add_shortcode( 'stats', 'simple_stats' );
+        }
         
 
         ////////////////////////////////////

@@ -59,15 +59,17 @@
                     s.addNow( b, "Audio", "[audio src=''][/audio]" );
                     
                     s.addNow( b, "Icons", "[icon class='fi-social-facebook' size='' color='' /]" );
-                    s.addNow( b, "Map", "coming soon.." );
+                    s.addNow( b, "Map", "[map latitude='' longitude='' width='' height='' zoom='' infowindow_text='']" );
                     s.addNow( b, "Lists", "[list]<li></li>[/list]" );
 
                     s.addNow( b, "Packages", '[packages]<br/>[package title="Basic" featured="false" price="$20" time="month" signup=""]Place your unordered list here.[/package]<br />[package title="Basic" featured="true" price="$20" time="month" signup="Alt Text"]Place your unordered list here.[/package]<br />[package title="Premium" featured="false" price="$100" time="month" signup=""]Place your unordered list here.[/package]<br />[/packages]' );
 
-
-
                     s.addNow( b, "Section", "[section short='' overlay='' color='' ratio='' bg='' stellar='' padding=''][/section]" );
 
+                    s.addNow( b, "Stats", "[stats short='' overlay='' color='' ratio='' bg='' stellar='' padding='']<br/>[stat total='']Content[/stat]<br/>[/stats]" );
+
+                    s.addNow( b, "Client List", "[clients type='' class='']" );
+                    s.addNow( b, "Post Carousel", "[posts type='']" );
                     
                     s.addNow( b, "Br", "[br/]" );
                     s.addNow( b, "Hr", "[hr/]" );
