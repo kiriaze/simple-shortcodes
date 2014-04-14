@@ -692,7 +692,7 @@ class Simple_Shortcodes_Class {
 
                 $html = "";
                 $html .= "<span class='scrollstat' data-total='$total'>$total</span>";
-                $html .= do_shortcode( $content );
+                $html .= "<p>".do_shortcode( $content )."</p>";
 
                 return $html;
                 
