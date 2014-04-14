@@ -66,7 +66,7 @@
 
                     s.addNow( b, "Section", "[section short='' overlay='' color='' ratio='' bg='' stellar='' padding=''][/section]" );
 
-                    s.addNow( b, "Stats", "[stats short='' overlay='' color='' ratio='' bg='' stellar='' padding='']<br/>[stat total='']Content[/stat]<br/>[/stats]" );
+                    s.addNow( b, "Stats", "[stats]<br/>[stat total='']Content[/stat]<br/>[/stats]" );
 
                     s.addNow( b, "Client List", "[clients type='' class='']" );
                     s.addNow( b, "Post Carousel", "[posts type='']" );

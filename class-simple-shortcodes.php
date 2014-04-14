@@ -669,22 +669,35 @@ class Simple_Shortcodes_Class {
         if ( !function_exists('simple_stats') ) {
             function simple_stats( $atts, $content = null ){
                 extract( shortcode_atts( array( 
-                    'type'      =>  '', // list, grid, slider
-                    'class'     =>  '', // specific for styling/js
-                    'total'     =>  '',
-
+                    ''     =>  '',
                 ), $atts ) );
 
-                $stats = "";
-                $stats .= "<div class='stat-block $type $class'>";
-                $stats .= "<span class='scrollstat' data-total='$total'>$total</span>";
-                $stats .= do_shortcode( $content );
-                $stats .= "</div>";
+                $html = "";
+                $html .= "<div class='stat-block'>";
+                $html .= do_shortcode( $content );
+                $html .= "</div>";
 
-                return $stats;
+                return $html;
                 
             }
             add_shortcode( 'stats', 'simple_stats' );
+        }
+
+        if ( !function_exists('simple_stat') ) {
+            function simple_stat( $atts, $content = null ){
+                extract( shortcode_atts( array( 
+                    'total'     =>  ''
+
+                ), $atts ) );
+
+                $html = "";
+                $html .= "<span class='scrollstat' data-total='$total'>$total</span>";
+                $html .= do_shortcode( $content );
+
+                return $html;
+                
+            }
+            add_shortcode( 'stat', 'simple_stat' );
         }
         
 
