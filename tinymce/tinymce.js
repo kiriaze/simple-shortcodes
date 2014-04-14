@@ -68,7 +68,7 @@
 
                     s.addNow( b, "Stats", "[stats]<br/>[stat total='']Content[/stat]<br/>[/stats]" );
 
-                    s.addNow( b, "Client List", "[clients type='' class='']" );
+                    s.addNow( b, "Client List", "[clients type='' class=''][/clients]" );
                     s.addNow( b, "Post Carousel", "[posts type='']" );
                     
                     s.addNow( b, "Br", "[br/]" );
