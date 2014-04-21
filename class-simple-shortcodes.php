@@ -38,8 +38,8 @@ class Simple_Shortcodes_Class {
     function add_shortcode_button() {
         if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') ) return;
         if ( get_user_option('rich_editing') == 'true') :
-            add_filter( "mce_external_plugins", "simple_add_buttons" );
-            add_filter( 'mce_buttons', 'simple_register_buttons' );
+            add_filter( "mce_external_plugins",  array( &$this, "simple_add_buttons" ) );
+            add_filter( 'mce_buttons',  array( &$this, 'simple_register_buttons' ) );
         endif;
     }
     
