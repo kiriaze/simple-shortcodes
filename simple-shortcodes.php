@@ -47,10 +47,10 @@ define( 'SIMPLE_SHORTCODES_PLUGIN_URL', plugin_dir_url( __FILE__ ));
 define( 'SIMPLE_SHORTCODES_PLUGIN_PATH', plugin_dir_path(__FILE__) );
 define( 'SIMPLE_SHORTCODES_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
-
 //  Wrapped in after_setup_theme to utilize options
 add_action('after_setup_theme', 'simple_shortcodes_init');
 function simple_shortcodes_init(){
+if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
     //  Load class
     require_once( SIMPLE_SHORTCODES_PLUGIN_PATH . 'class-simple-shortcodes.php' );
 }

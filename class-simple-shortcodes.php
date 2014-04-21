@@ -27,13 +27,43 @@ class Simple_Shortcodes_Class {
        
         //  Shortcodes
         add_action( 'init', array( &$this, 'shortcodes_init' ) );
+        add_action( 'init', array( &$this, 'add_shortcode_button') );
+        add_filter( 'tiny_mce_version', array( &$this, 'refresh_mce' ) );
 
         //  Load shortcode scripts
         add_action( 'wp_enqueue_scripts', array( &$this, 'load_scripts' ), 10 );
 
     }
+
+
+    function add_shortcode_button() {
+        if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') ) return;
+        if ( get_user_option('rich_editing') == 'true') :
+            add_filter( "mce_external_plugins", "simple_add_buttons" );
+            add_filter( 'mce_buttons', 'simple_register_buttons' );
+        endif;
+    }
     
+    function simple_register_buttons( $buttons ) {
+        array_push( $buttons, "|", 'simple_button' );
+        return $buttons;
+    }
+
+
+    function simple_add_buttons( $plugin_array ) {
+        $plugin_array['SimpleShortcodes'] = plugins_url( 'tinymce/tinymce.js', __FILE__ );
+        return $plugin_array;
+    }
+
+
+    function refresh_mce( $ver ) {
+        $ver += 3;
+        return $ver;
+    }
+
     function shortcodes_init() {
+
+        wp_localize_script( 'jquery', 'SimpleShortcodes', array('plugin_folder' => plugin_dir_url(__FILE__)) );  
 
         // set global
         if ( !function_exists('HexToRGB') ):
@@ -59,30 +89,6 @@ class Simple_Shortcodes_Class {
 
         add_filter('widget_text', 'shortcode_unautop', 10);
         add_filter('widget_text', 'do_shortcode', 10);
-
-        // TinyMCE Buttons
-        if ( !function_exists('simple_tinymce_buttons') ) {
-            function simple_tinymce_buttons() {
-
-                wp_localize_script( 'jquery', 'SimpleShortcodes', array('plugin_folder' => plugin_dir_url(__FILE__)) );
-
-                add_filter( "mce_external_plugins", "simple_add_buttons" );
-                add_filter( 'mce_buttons', 'simple_register_buttons' );
-                
-                function simple_add_buttons( $plugin_array ) {
-                    $plugin_array['SimpleShortcodes'] = plugins_url( 'tinymce/tinymce.js', __FILE__ );
-                    return $plugin_array;
-                }
-
-                function simple_register_buttons( $buttons ) {
-                    // array_push( $buttons, 'dropcap', 'showrecent' ); // dropcap, recentposts
-                    array_push( $buttons, "|", 'simple_button' );
-                    return $buttons;
-                }
-
-            }
-            simple_tinymce_buttons();
-        }
 
 
         ////////////////////////////////////
