@@ -26,15 +26,14 @@ class Simple_Shortcodes_Class {
         load_plugin_textdomain( 'simple', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
        
         //  Shortcodes
-        add_action( 'init', array( &$this, 'shortcodes_init' ) );
         add_action( 'init', array( &$this, 'add_shortcode_button') );
         add_filter( 'tiny_mce_version', array( &$this, 'refresh_mce' ) );
+        add_action( 'init', array( &$this, 'shortcodes_init' ) );
 
         //  Load shortcode scripts
         add_action( 'wp_enqueue_scripts', array( &$this, 'load_scripts' ), 10 );
 
     }
-
 
     function add_shortcode_button() {
         if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') ) return;
