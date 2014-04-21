@@ -36,31 +36,19 @@ class Simple_Shortcodes_Class {
     function shortcodes_init() {
 
         wp_localize_script( 'jquery', 'SimpleShortcodes', array('plugin_folder' => plugin_dir_url(__FILE__)) );
-
-        function add_shortcode_button() {
-            if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') ) return;
-            if ( get_user_option('rich_editing') == 'true') :
-                add_filter( "mce_external_plugins",  array( &$this, "simple_add_buttons" ) );
-                add_filter( 'mce_buttons',  array( &$this, 'simple_register_buttons' ) );
-            endif;
-        }
-        
+                
         function simple_register_buttons( $buttons ) {
             array_push( $buttons, "|", 'simple_button' );
             return $buttons;
         }
-
 
         function simple_add_buttons( $plugin_array ) {
             $plugin_array['SimpleShortcodes'] = plugins_url( 'tinymce/tinymce.js', __FILE__ );
             return $plugin_array;
         }
 
-
-        function refresh_mce( $ver ) {
-            $ver += 3;
-            return $ver;
-        }
+        add_filter( "mce_external_plugins", "simple_add_buttons" );
+        add_filter( 'mce_buttons', 'simple_register_buttons' );
 
         // set global
         if ( !function_exists('HexToRGB') ):
