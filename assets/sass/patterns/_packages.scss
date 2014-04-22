@@ -1,0 +1,135 @@
+.pricing-tables{
+
+    text-align: justify;
+    
+
+    max-width: $base-width;
+    overflow: hidden;   // optional
+    margin: 0 auto;     // optional
+    
+    &:after{
+        content: '';
+        display: inline-block;
+        width: 100%;
+    }
+
+    margin-bottom: 40px;
+
+    .pricing-tables-inner {
+
+        width: 100%;
+        position: relative;
+        // hide whitespace between elements. required if flush needed, e.g. col width: 25% with no margins
+        font-size: 0.1px; // 0px for ff, 0.1px ie
+
+        @include breakpoint(medium) {
+            .pricing-tables-inner {
+                display: block;
+            }
+        }
+
+        .package {
+
+            @extend %ib;
+            width: calc(100%/3);
+            vertical-align: top;
+            text-align: center;
+
+            @include breakpoint(medium) {
+                .package {
+                    display: block;
+                }
+            }
+
+            &.type-featured {
+
+                .package-inner{
+                    margin: 0;
+                    position: relative;
+                    border-left: none;
+                    box-shadow: 0 1px 10px rgba(0,0,0,0.15);
+                }
+
+                .package-title {
+                    padding: 20px 0;
+                    background-color: $theme-color;
+                    color: #fff;
+                }
+
+                .package-footer {
+                    padding-bottom: 40px;
+                }
+
+                & + .package .package-inner{
+                    border-left: none;
+                }
+
+            }
+
+            &:first-child .package-inner,
+            &:first-child .package-title,
+            &:first-child .package-price {
+                border-left: none;
+            }
+
+
+            .package-inner{
+
+                margin: 10px 0;
+                border-bottom: 1px solid #e8e8e8;
+                border-left: 1px solid #e8e8e8;
+
+                .package-header {
+
+                    margin-bottom: 20px;
+
+                    .package-title {
+                        padding: 5px;
+                        font: 700 18px/18px 'Open Sans';
+                        text-transform: uppercase;
+                        padding: 15px 0;
+                        background-color: #444;
+                        color: #fff;
+                    }
+
+                    .package-price {
+                        padding: 10px;
+                        font: 44px/44px 'Open Sans';
+                        padding: 20px;
+                        background-color: rgba(0,0,0,0.05);
+                        small {
+                            display: block;
+                            font-size: 1rem;
+                            line-height: 20px;
+                            margin-top: 4px;
+                        }
+                    }
+
+                }
+
+                .package-features,
+                .package-features ul {
+                    
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    font-size: 1rem;
+
+                    li {
+                        padding: 6px 30px;
+                        margin: 0;
+                    }
+
+                }
+                
+                .package-footer {
+                    padding: 30px 0;
+                }
+                
+            }
+
+        }
+
+    }
+
+}

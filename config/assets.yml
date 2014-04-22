@@ -1,0 +1,14 @@
+package_assets: on
+embed_assets: off
+compress_assets: on
+gzip_assets: off
+javascript_compressor: uglifier
+javascripts:
+  min:
+    - assets/js/plugins/owl-carousel/js/owl.carousel.min.js
+    - assets/js/plugins/jquery.magnific-popup.min.js
+    - assets/js/plugins/mediaelement-and-player.min.js
+    - assets/js/plugins/plugins.js
+    - assets/js/plugins/prettify.js
+    - assets/js/plugins/simple-media.js
+    - assets/js/app.js

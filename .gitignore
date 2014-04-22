@@ -1,9 +1,4 @@
 .DS_Store
 *.DS_Store
 .sass-cache/
-assets/
-config/
-config.rb
-Gemfile
 Gemfile.lock
-Guardfile

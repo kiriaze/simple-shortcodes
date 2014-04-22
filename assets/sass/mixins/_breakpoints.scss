@@ -1,0 +1,40 @@
+/* ============================================
+	B R E A K  P O I N T S
+============================================ */
+
+@mixin breakpoint($point) {
+	@if $point == wide {
+		@media (min-width: $super-width) { 
+			@content; 
+		}
+	}
+	@if $point == desktop {
+		@media (min-width: $base-width) { 
+			@content; 
+		}
+	}
+	@else if $point == tablet {
+		@media (min-width: $tablet-width) { 
+			@content; 
+		}
+	}
+	@else if $point == phone {
+		@media (min-width: $mobile-landscape-width) {
+			@content; 
+		}
+	}
+}
+
+// Example usage:
+//
+// @include breakpoint(desktop) { 
+// 	background: purple;
+// }
+
+// @include breakpoint(tablet) { 
+// 	background: green;
+// }
+
+// @include breakpoint(phone) { 
+// 	background: red;
+// }
