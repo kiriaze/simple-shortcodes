@@ -1,5 +1,4 @@
 [data-type="tabs"] {
-	@include font-size(16);
 	background: white;
 	[data-tab] {
 	    display: inline-block;
@@ -22,7 +21,7 @@
 		    @extend %fadeIn !optional;
 		}
 	}
-	
+
 	&.alt {
 		[data-tab] {
 			&.active,

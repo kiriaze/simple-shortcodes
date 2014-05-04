@@ -34,7 +34,7 @@ $icon-font: 'Foundation';
 	    font-size: inherit;
 	    text-transform: none;
 	    text-decoration: inherit;
-		-webkit-font-smooth: always; 
+		-webkit-font-smooth: always;
 		-webkit-font-smoothing: antialiased;
 		display: inline-block;
 	}
@@ -45,7 +45,7 @@ $icon-font: 'Foundation';
 	@extend %font-baseline;
 	@extend %icon;
 	&:before {
-		@include font-size(21);
+
 	}
 }
 

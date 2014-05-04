@@ -1,10 +1,12 @@
+%ib {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    font-size: 1rem; // reset
+    text-align: left; // reset
+}
+
 @import
-	'vendor/bourbon/bourbon',
-    'base',
-    'vendor/animate/animate',
-	'defaults/placeholders',
-	'mixins/mixins',
-	'core/core',
 	'../../public/fonts/font-awesome/font-awesome.min.css',
 	'../../public/fonts/foundation/foundation-icons.min.css',
 	'../../public/fonts/ionicons/ionicons.min.css',

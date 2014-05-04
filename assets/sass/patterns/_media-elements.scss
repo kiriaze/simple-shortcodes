@@ -21,13 +21,9 @@ audio, canvas, video {
     text-align: left;
     text-decoration: none;
     font-family: sans-serif;
-    
+
     button{
         outline: none;
-    }
-
-    @include breakpoint(small) {
-        max-width: 100%;
     }
 
 }
@@ -101,7 +97,6 @@ audio, canvas, video {
     height: 100% !important;
 
     background-color: rgba(0, 0, 0, 0.380392);
-    transition: $transition;
 }
 
 .mejs-overlay-play {
@@ -130,7 +125,7 @@ audio, canvas, video {
 }
 
 .mejs-overlay:hover .mejs-overlay-button {
-    background-color: $theme-color;
+
 }
 
 .mejs-overlay-loading {
@@ -302,7 +297,6 @@ audio, canvas, video {
 .mejs-controls .mejs-time-rail .mejs-time-current {
     z-index: 1;
     width: 0;
-    background: $theme-color;
 }
 
 .mejs-controls .mejs-time-rail .mejs-time-handle {
@@ -392,7 +386,7 @@ audio, canvas, video {
 
 .mejs-controls .mejs-unmute button {
     @extend .mejs-icons;
-    @extend .fi-volume-none;    
+    @extend .fi-volume-none;
 }
 
 .mejs-controls .mejs-unmute button:hover {
@@ -440,7 +434,6 @@ audio, canvas, video {
     margin: 0px;
     width: 7px;
     height: 50px;
-    background: $theme-color;
     background-position: bottom;
 }
 
@@ -462,10 +455,6 @@ audio, canvas, video {
     width: 62px;
     height: 26px;
     background: none;
-
-    // @include breakpoint(small) {
-    //     display: none;
-    // }
 }
 
 .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total {
@@ -487,7 +476,6 @@ audio, canvas, video {
     padding: 0;
     width: 50px;
     height: 7px;
-    background: $theme-color;
     font-size: 1px;
 }
 

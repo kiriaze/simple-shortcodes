@@ -1,14 +1,3 @@
-# Require any additional compass plugins here.
-require 'autoprefixer-rails'
-require 'csso'
-on_stylesheet_saved do |file|
-  css = File.read(file)
-  File.open(file, 'w') do |io|
-    io << Csso.optimize( AutoprefixerRails.compile(css) )
-  end
-end
-
-
 # Set this to the root of your project when deployed:
 http_path       = "/"
 css_dir         = "public/css"
@@ -29,3 +18,14 @@ cache_dir = ".sass-cache"
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 line_comments = false
+
+
+# Require any additional compass plugins here.
+require 'autoprefixer-rails'
+
+on_stylesheet_saved do |file|
+  css = File.read(file)
+  File.open(file, 'w') do |io|
+    io << AutoprefixerRails.process(css)
+  end
+end

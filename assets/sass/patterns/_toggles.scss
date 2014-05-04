@@ -1,6 +1,5 @@
 .simple-toggle,
 .simple-accordion {
-	@include font-size(16);
 
 	.simple-toggle-title,
 	.simple-accordion-title {
@@ -19,25 +18,22 @@
 		&:hover {
 			color: #2A3034;
 		}
-	
+
 		&:hover,
 		&.ui-state-active,
-		&.ui-state-active:hover { 
+		&.ui-state-active:hover {
 			background: #F6F8FB;
-			border-color: $theme-color;
 		}
 
 	}
 
 	&:last-child .simple-toggle-title{
-		
+
 	}
-	
-		
+
 	.simple-toggle-inner,
 	.simple-accordion-inner {
 		background: #FFF;
-		// margin: 4px 0;
 	}
 
 	.target {
@@ -47,7 +43,7 @@
 		height: 100%;
 		padding: 15px 15px 15px 25px;
 	}
-		
+
 	span.ui-icon {
 	    width: 10px;
 	    height: 10px;
@@ -56,7 +52,7 @@
 	    font-size: .9rem;
 	}
 
-	.ui-state-active .ui-icon { 
-		
+	.ui-state-active .ui-icon {
+
 	}
 }

@@ -1,12 +1,11 @@
 .alert {
 	position: relative;
 	z-index: 1;
-	
+
 	font-weight: 600;
 	padding: 10px 15px;
 	margin-bottom: 20px;
 	background-color: #fcf8e3;
-	@include font-size(16);
 
 	&.alt {
 		border-left: 4px solid #3498DB;

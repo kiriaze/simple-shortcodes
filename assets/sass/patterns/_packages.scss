@@ -1,12 +1,9 @@
 .pricing-tables{
 
     text-align: justify;
-    
-
-    max-width: $base-width;
     overflow: hidden;   // optional
     margin: 0 auto;     // optional
-    
+
     &:after{
         content: '';
         display: inline-block;
@@ -19,14 +16,7 @@
 
         width: 100%;
         position: relative;
-        // hide whitespace between elements. required if flush needed, e.g. col width: 25% with no margins
         font-size: 0.1px; // 0px for ff, 0.1px ie
-
-        @include breakpoint(medium) {
-            .pricing-tables-inner {
-                display: block;
-            }
-        }
 
         .package {
 
@@ -34,12 +24,6 @@
             width: calc(100%/3);
             vertical-align: top;
             text-align: center;
-
-            @include breakpoint(medium) {
-                .package {
-                    display: block;
-                }
-            }
 
             &.type-featured {
 
@@ -52,7 +36,6 @@
 
                 .package-title {
                     padding: 20px 0;
-                    background-color: $theme-color;
                     color: #fff;
                 }
 
@@ -85,7 +68,6 @@
 
                     .package-title {
                         padding: 5px;
-                        font: 700 18px/18px 'Open Sans';
                         text-transform: uppercase;
                         padding: 15px 0;
                         background-color: #444;
@@ -94,7 +76,6 @@
 
                     .package-price {
                         padding: 10px;
-                        font: 44px/44px 'Open Sans';
                         padding: 20px;
                         background-color: rgba(0,0,0,0.05);
                         small {
@@ -109,7 +90,7 @@
 
                 .package-features,
                 .package-features ul {
-                    
+
                     list-style-type: none;
                     margin: 0;
                     padding: 0;
@@ -121,11 +102,11 @@
                     }
 
                 }
-                
+
                 .package-footer {
                     padding: 30px 0;
                 }
-                
+
             }
 
         }

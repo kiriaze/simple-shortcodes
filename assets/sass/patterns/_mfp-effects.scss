@@ -5,7 +5,7 @@
 	padding: 25px;
 	width:auto;
 	max-width: 400px;
-	margin: 0 auto; 
+	margin: 0 auto;
 }
 .mfp-inline li,
 .mfp-image li{
@@ -27,23 +27,23 @@
 	//	animate in
 	&.mfp-ready {
 		.mfp-with-anim {
-			@extend %fadeInUp;
+			@extend %fadeInUp !optional;
 		}
 		&.mfp-bg {
-			@extend %fadeIn;
+			@extend %fadeIn !optional;
 		}
 	}
-	
+
 	//	animate out
 	&.mfp-removing {
 		.mfp-with-anim {
-			@extend %fadeOutDown;
+			@extend %fadeOutDown !optional;
 		}
 		&.mfp-bg {
-			@extend %fadeOut;
+			@extend %fadeOut !optional;
 		}
 	}
-	
+
 }
 
 //	Move Horizontal
@@ -52,23 +52,23 @@
 	//	animate in
 	&.mfp-ready {
 		.mfp-with-anim {
-			@extend %fadeInLeft;
+			@extend %fadeInLeft !optional;
 		}
 		&.mfp-bg {
-			@extend %fadeIn;
+			@extend %fadeIn !optional;
 		}
 	}
-	
+
 	//	animate out
 	&.mfp-removing {
 		.mfp-with-anim {
-			@extend %fadeOutRight;
+			@extend %fadeOutRight !optional;
 		}
 		&.mfp-bg {
-			@extend %fadeOut;
+			@extend %fadeOut !optional;
 		}
 	}
-	
+
 }
 
 //	Zoom-in effect
@@ -77,21 +77,21 @@
 	//	animate in
 	&.mfp-ready {
 		.mfp-with-anim {
-			@extend %fadeInScaleBig;
+			@extend %fadeInScaleBig !optional;
 		}
 		&.mfp-bg {
-			@extend %fadeIn;
+			@extend %fadeIn !optional;
 		}
 	}
-	
+
 	//	animate out
 	&.mfp-removing {
 		.mfp-with-anim {
-			@extend %fadeOutScaleBig;
+			@extend %fadeOutScaleBig !optional;
 		}
 		&.mfp-bg {
-			@extend %fadeOut;
+			@extend %fadeOut !optional;
 		}
 	}
-	
+
 }

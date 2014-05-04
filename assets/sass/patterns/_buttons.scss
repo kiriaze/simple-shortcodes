@@ -1,3 +1,28 @@
+/*  Buttons
+============================================ */
+@mixin btn($color:#000) {
+    @extend %ib;
+    background: $color;
+    color: white;
+    padding: .5em 1.5em; // relative to button font size
+    // override <button>'s
+    border: none;
+    user-select: none;
+    appearance: none;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+
+    &:hover{
+        background: darken($color, 10);
+        color: white;
+    }
+}
+
+%btn {
+    @include btn();
+}
+
 .btn{
     @extend %btn;
     margin-bottom: 1%;
@@ -51,7 +76,7 @@
         @include btn(white);
         color: #444;
     }
-    
+
     &.square {
         border-radius: 0;
     }
