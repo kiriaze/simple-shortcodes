@@ -3,7 +3,7 @@
 Plugin Name:     Simple Shortcodes
 Plugin URI:      https://github.com/kiriaze/simple-shortcodes
 Description:     Simple Shortcodes Description
-Version:         1.0.0
+Version:         1.0.1
 Author:          Constantine Kiriaze (@kiriaze)
 Author URI:      http://getsimple.io/about
 License:         GNU General Public License v2 or later
@@ -18,7 +18,7 @@ GitHub Branch:     master
     Copyright (C) 2013  Constantine Kiriaze (hello@kiriaze.com)
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 2, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
