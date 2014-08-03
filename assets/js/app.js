@@ -1,3 +1,11 @@
+// @codekit-prepend 'plugins/head.min.js'
+// @codekit-prepend 'plugins/owl2/js/owl.carousel.min.js'
+// @codekit-prepend 'plugins/jquery.magnific-popup.min.js'
+// @codekit-prepend 'plugins/mediaelement-and-player.min.js'
+// @codekit-prepend 'plugins/plugins.js'
+// @codekit-prepend 'plugins/prettify.js'
+// @codekit-prepend 'plugins/simple-media.js'
+
 (function($) {
 
 	window.shortcodes = {};

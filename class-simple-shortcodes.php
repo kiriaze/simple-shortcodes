@@ -788,11 +788,11 @@ class Simple_Shortcodes_Class {
             function simple_section( $atts, $content = null ) {
 
                 extract( shortcode_atts( array(
-                    'tall'      =>  false,
                     'overlay'   =>  false,
                     'color'     =>  '',
                     'ratio'     =>  '',
                     'bg'        =>  '',
+                    'bg-position'=> '',
                     'cover'     =>  'true',
                     'stellar'   =>  false,
                     'padding'   =>  '',
@@ -801,8 +801,8 @@ class Simple_Shortcodes_Class {
 
                 $overlay    = $overlay ? ' colored-overlay shadow ' : false;
                 $context    = !$content ? ' no-content ' : '';
-                $tall      = $tall ? ' large ' : false;
                 $bg         = $bg ? $bg : '';
+                $position   = $bg ? $position : '';
                 $cover      = ($cover != 'true') ? 'background-size: auto;' : 'background-size: cover; background-repeat: no-repeat; background-position: center;';
                 $stellar    = $stellar ? ' stellar ' : false;
                 $ratio      = $ratio ? $ratio: '0.5';
@@ -819,7 +819,7 @@ class Simple_Shortcodes_Class {
                 $newColor = 'rgba(' . implode(",", $newColor) .');';
 
                 $html = '';
-                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $tall . $overlay . $context . $padding . '" '.$ratio.' style="background-image: url('. $bg .'); ' . $newColor . $cover . '">';
+                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $overlay . $context . $padding . '" '.$ratio.' style="background-image: url('. $bg .'); background-position:'.$position.'; ' . $newColor . $cover . '">';
                 if ( $color ) {
                     $html .= "<style>.colored-overlay#colored-$id:before{
                                 background-color: $newColor;
@@ -1094,8 +1094,10 @@ class Simple_Shortcodes_Class {
 
     //  Shortcode Scripts / Styles
     function load_scripts() {
-        wp_enqueue_style( 'shortcodes-css', plugins_url( 'assets/css/main.css', __FILE__ ) );
-        wp_enqueue_script( 'shortcodes-js', plugins_url( 'assets/js/app-ck.js', __FILE__ ), array('jquery'), '', true );
+
+        wp_enqueue_style( 'shortcodes-css', plugins_url( 'public/css/main.css', __FILE__ ) );
+        wp_enqueue_script( 'shortcodes-js', plugins_url( 'public/js/app-min.js', __FILE__ ), array('jquery'), '', true );
+
     }
 
 }
