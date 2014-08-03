@@ -4,7 +4,7 @@
     @extend %ib;
     background: $color;
     color: white;
-    padding: .5em 1.5em; // relative to button font size
+
     // override <button>'s
     border: none;
     user-select: none;
@@ -57,7 +57,7 @@
         @include btn(#ce3b72);
     }
     &.instagram {
-
+        @include btn(#bbb);
     }
     &.linkedin {
         @include btn(#4392cc);
@@ -90,6 +90,5 @@
     }
     &.large {
         font-size: 1rem;
-        padding: 1rem 2rem;
     }
 }
