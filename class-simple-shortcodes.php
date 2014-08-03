@@ -37,18 +37,26 @@ class Simple_Shortcodes_Class {
 
         wp_localize_script( 'jquery', 'SimpleShortcodes', array('plugin_folder' => plugin_dir_url(__FILE__)) );
 
-        function simple_register_buttons( $buttons ) {
-            array_push( $buttons, "|", 'simple_button' );
-            return $buttons;
-        }
+        add_filter( "mce_external_plugins", "simple_add_buttons" );
+        add_filter( 'mce_buttons', 'simple_register_buttons' );
 
         function simple_add_buttons( $plugin_array ) {
-            $plugin_array['SimpleShortcodes'] = plugins_url( 'tinymce/tinymce.js', __FILE__ );
+            $plugin_array['simple_button'] = plugins_url( 'tinymce/tinymce.js', __FILE__ );
             return $plugin_array;
         }
 
-        add_filter( "mce_external_plugins", "simple_add_buttons" );
-        add_filter( 'mce_buttons', 'simple_register_buttons' );
+        // Register new button in the editor
+        function simple_register_buttons( $buttons ) {
+            array_push( $buttons, 'simple_button' );
+            return $buttons;
+        }
+
+        function my_shortcodes_mce_css() {
+            wp_enqueue_style('tinymce-styles', plugins_url( 'tinymce/style.css', __FILE__) );
+        }
+        add_action( 'admin_enqueue_scripts', 'my_shortcodes_mce_css' );
+
+
 
         // set global
         if ( !function_exists('HexToRGB') ):
@@ -70,7 +78,6 @@ class Simple_Shortcodes_Class {
                 return $color;
             }
         endif;
-
 
         add_filter('widget_text', 'shortcode_unautop', 10);
         add_filter('widget_text', 'do_shortcode', 10);
@@ -166,6 +173,8 @@ class Simple_Shortcodes_Class {
                     'tooltip'   =>  false,
                     'position'  =>  'top'
                 ), $atts ) );
+
+                $font_size = '';
 
                 if($size) $font_size = 'font-size: '. $size .';';
                 if($color) $font_color = 'color: '. $color .';';
@@ -310,6 +319,8 @@ class Simple_Shortcodes_Class {
                     ''  =>  ''
                 ), $atts ) );
 
+                $html = '';
+
                 $html .= '<div class="accordion">';
                 $html .= do_shortcode( $content);
                 $html .= '</div>';
@@ -418,6 +429,10 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         // T A B S
         ////////////////////////////////////
+
+
+        $tabs_divs = '';
+
         if ( !function_exists('simple_tabs') ) {
             function simple_tabs( $atts, $content = null ) {
 
@@ -425,30 +440,17 @@ class Simple_Shortcodes_Class {
                     '' =>  ''
                 ), $atts ) );
 
-                preg_match_all( '/tab title="([^\"]+)"/i', $content, $matches, PREG_OFFSET_CAPTURE );
+                global $tabs_divs;
 
-                $tab_titles = array();
-                if( isset($matches[1]) ){
-                    $tab_titles = $matches[1];
-                }
+                $tabs_divs = '';
 
-                $output = '';
-
-                if( count($tab_titles) ){
-                    $output .= '<div data-type="tabs">';
-                    $count = 0;
-                    foreach( $tab_titles as $tab ){
-                        $output .= '<a href="#" data-tab="'. sanitize_title( $tab[0] ) .'" class="tab">' . $tab[0] . '</a>';
-                        $count++;
-                    }
-
-                    $output .= do_shortcode( $content);
-                    $output .= '</div>';
-                } else {
-                    $output .= do_shortcode( $content );
-                }
+                $output = '<div data-type="tabs">';
+                $output.= do_shortcode($content);
+                $output .= $tabs_divs;
+                $output.= '</div>';
 
                 return $output;
+
             }
             add_shortcode( 'tabs', 'simple_tabs' );
         }
@@ -457,11 +459,18 @@ class Simple_Shortcodes_Class {
 
             function simple_tab( $atts, $content = null ) {
 
-                extract( shortcode_atts( array(
-                    'title' =>  'Tab'
-                ), $atts ) );
+                global $tabs_divs;
 
-                return '<div data-tab-content="'. sanitize_title( $title ) .'">'. apply_filters( 'the_content', do_shortcode( $content ) ) .'</div>';
+                extract(shortcode_atts(array(
+                    'title' => '',
+                ), $atts));
+
+                $output = '<a href="#" data-tab="'. sanitize_title( $title ) .'" class="tab">' . $title . '</a>';
+
+                $tabs_divs.= '<div data-tab-content="'. sanitize_title( $title ) .'">'. apply_filters( 'the_content', do_shortcode( $content ) ) .'</div>';
+
+                return $output;
+
             }
             add_shortcode( 'tab', 'simple_tab' );
         }
@@ -499,15 +508,15 @@ class Simple_Shortcodes_Class {
             function simple_audio_shortcode( $atts ) {
                 extract( shortcode_atts( array(
                     'src'   =>  '',
-                    'mp4'   =>  ''  // default wp behavior
+                    'mp3'   =>  ''  // default wp behavior
                 ), $atts ) );
 
-                $mp4 = ($mp4) ? $mp4 : $src;
-                $src = $mp4;
+                $mp3 = ($mp3) ? $mp3 : $src;
+                $src = $mp3;
 
                 $src = substr($src, 0, -4);
 
-                $audio = '<audio data-media-src="'.$src.'.{mp4, ogg, mp3}" controls></audio>';
+                $audio = '<audio data-media-src="'.$src.'.{mp3, ogg, mp4}" controls></audio>';
 
                 return $audio;
             }
@@ -538,12 +547,12 @@ class Simple_Shortcodes_Class {
 
                 $google_map_code = "";
 
-                if( strpos($height, 'px') || strpos($height, '%') ) {
+                if ( strpos($height, 'px') || strpos($height, '%') ) {
 
                 } else {
                     $height = $height.'px';
                 }
-                if( strpos($width, 'px') || strpos($width, '%') ) {
+                if ( strpos($width, 'px') || strpos($width, '%') ) {
 
                 } else {
                     $width = $width.'px';
@@ -590,7 +599,8 @@ class Simple_Shortcodes_Class {
 
                     $google_map_script_code .= "
                     })(jQuery)
-                </script>";
+                </script>
+                ";
 
                 return $google_map_code;
 
@@ -600,14 +610,14 @@ class Simple_Shortcodes_Class {
             /* Add Google Map Code to Footer */
             function add_google_map_code() {
                 global $google_map_script_code;
-                if( isset($google_map_script_code) ) {
-                    if($google_map_script_code) {
+                if ( isset($google_map_script_code) ) {
+                    if ( $google_map_script_code ) {
                         echo $google_map_script_code;
                     }
                 }
 
             }
-            add_action('wp_footer', 'add_google_map_code', 100);
+            // add_action('wp_footer', 'add_google_map_code');
         }
 
 
@@ -703,39 +713,46 @@ class Simple_Shortcodes_Class {
                     ''  =>  ''
                 ), $atts ) );
 
-                $html = '';
+                $output = '';
 
-                preg_match_all( '/package title="([^\"]+)"/i', $content, $matches, PREG_OFFSET_CAPTURE );
+                preg_match_all('/'.get_shortcode_regex().'/s', $content, $matches); // check all shortcode
 
                 $packages = array();
-                if( isset($matches[1]) ){
-                    $packages = $matches[1];
+
+                if ( isset($matches[1]) ){
+                    $packages = $matches[0];
                 }
 
-                if( count($packages) ){
+                if ( count($packages) ) {
 
                     $count = 0;
-                    foreach( $packages as $package ){
+                    foreach ( $packages as $package ) {
                         $count++;
                     }
-                    $width = 100/$count;
-                    $html .= '<style>
-                                .pricing-tables .pricing-tables-inner .package {
-                                    width: '.$width.'%;
-                                }
-                            </style>';
 
-                    $html .= '<div class="pricing-tables">';
-                    $html .= '<div class="pricing-tables-inner">';
-                    $html .= do_shortcode( $content);
-                    $html .= '</div>';
-                    $html .= '</div>';
+                    $width = 100/$count;
+                    $output .=  '<style>
+                                    #pricing-table-'.$count.' .pricing-tables-inner .package {
+                                        width: 100%;
+                                    }
+                                    @media ( min-width: 720px ) {
+                                        #pricing-table-'.$count.' .pricing-tables-inner .package {
+                                            width: '.$width.'%;
+                                        }
+                                    }
+                                </style>';
+
+                    $output .= '<div class="pricing-tables" id="pricing-table-'.$count.'">';
+                    $output .= '<div class="pricing-tables-inner">';
+                    $output .= do_shortcode( $content );
+                    $output .= '</div>';
+                    $output .= '</div>';
 
                 } else {
-                    $html .= do_shortcode( $content );
+                    $output .= do_shortcode( $content );
                 }
 
-                return $html;
+                return $output;
 
             }
             add_shortcode( 'packages', 'simple_packages' );
@@ -756,25 +773,24 @@ class Simple_Shortcodes_Class {
                 $featured = ($featured == 'true') ? 'type-featured' : '';
                 $signup = $signup ? $signup : 'Sign Up';
 
-                $html = '';
-                $html .= "<div class='$featured package'>";
-                $html .= "<div class='package-inner'>";
-                $html .= "<div class='package-header'>
-                            <div class='package-title sbg'>$title</div>
-                            <div class='package-price'>$price<small>per $time</small></div>
-                        </div>";
-                $html .= "<div class='package-features'>";
-                $html .= do_shortcode( $content );
-                $html .= "</div>";
-                $html .= "<div class='package-footer'>
-                            <a class='btn' href='javascript:;'>
-                                <span>$signup</span>
-                            </a>
-                        </div>";
-                $html .= "</div>";
-                $html .= "</div>";
+                $output  = "<div class='$featured package'>";
+                $output .= "<div class='package-inner'>";
+                $output .= "<div class='package-header'>
+                                <div class='package-title sbg'>$title</div>
+                                <div class='package-price'>$price<small>per $time</small></div>
+                            </div>";
+                $output .= "<div class='package-features'>";
+                $output .= do_shortcode( $content );
+                $output .= "</div>";
+                $output .= "<div class='package-footer'>
+                                <a class='btn' href='javascript:;'>
+                                    <span>$signup</span>
+                                </a>
+                            </div>";
+                $output .= "</div>";
+                $output .= "</div>";
 
-                return $html;
+                return $output;
             }
             add_shortcode( 'package', 'simple_package' );
         }
@@ -792,10 +808,12 @@ class Simple_Shortcodes_Class {
                     'color'     =>  '',
                     'ratio'     =>  '',
                     'bg'        =>  '',
-                    'bg-position'=> '',
+                    'position'  =>  '',
                     'cover'     =>  'true',
                     'stellar'   =>  false,
                     'padding'   =>  '',
+                    'margin'    =>  '',
+                    'video'     =>  false,
                     'class'     =>  '' // container, content
                 ), $atts ) );
 
@@ -812,19 +830,40 @@ class Simple_Shortcodes_Class {
                 if ($padding == "top") $padding = " padding-top ";
                 if ($padding == "none") $padding = " padding-none ";
 
+                $margin = $margin ? $margin : '';
+                if ($margin == "top") $margin = " margin-top ";
+                if ($margin == "none") $margin = " margin-none ";
+
+                $videoURL   = $video ? $video : '';
+                $video      = $video ? ' video ' : false;
+
+                $videoHtml = $videoURL ? '
+                <div class="video-wrapper">
+                    <video controls="controls" preload="auto" loop="loop" autoplay="autoplay">
+                    <source type="video/mp4" src="'.$videoURL.'"></video>
+                </div>
+                ' : null;
+
                 $color      = $color ? $color : '';
                 $id         = rand(1, 10000);
 
-                $newColor = HexToRGB( $color, .7 ); // has to be hex
-                $newColor = 'rgba(' . implode(",", $newColor) .');';
+                $newColor   = '';
+
+                if ( $overlay && substr($color, 0, 1) == '#' ) { // if overlay is set and if a hex value is passed
+                    $newColor = HexToRGB( $color, .7 ); // has to be hex
+                    $newColor = 'background-color: rgba('.$newColor.');';
+                } else if ( substr($color, 0, 1) != '#' &! $bg ) { // if color is word and no bg is set
+                    $newColor = 'background-color: ' . $color . ';';
+                }
 
                 $html = '';
-                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $overlay . $context . $padding . '" '.$ratio.' style="background-image: url('. $bg .'); background-position:'.$position.'; ' . $newColor . $cover . '">';
+                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $video . $stellar . $overlay . $context . $padding . $margin . '" '.$ratio.' style="background-image: url('. $bg .'); background-position:'.$position.'; ' . $newColor . $cover . '">';
                 if ( $color ) {
                     $html .= "<style>.colored-overlay#colored-$id:before{
-                                background-color: $newColor;
+                                $newColor
                             }</style>";
                 }
+                $html .= $videoHtml;
                 $html .= do_shortcode( $content );
                 $html .= '</section>';
 
@@ -875,7 +914,7 @@ class Simple_Shortcodes_Class {
         // S T A N D A R D
         ////////////////////////////////////
         if ( !function_exists('bloginfo_shortcode') ) {
-            // bloginfo url
+            // bloginfo url - only works with bloginfo() function
             function bloginfo_shortcode( $atts ) {
                 extract(shortcode_atts(array(
                     'key' => '',
@@ -886,7 +925,7 @@ class Simple_Shortcodes_Class {
         }
 
         if ( !function_exists('raw_shortcode') ) {
-            // raw
+            // output raw HTML
             function raw_shortcode( $atts, $content ) {
                 extract(shortcode_atts(array(
                     '' => '',
@@ -1095,8 +1134,8 @@ class Simple_Shortcodes_Class {
     //  Shortcode Scripts / Styles
     function load_scripts() {
 
-        wp_enqueue_style( 'shortcodes-css', plugins_url( 'public/css/main.css', __FILE__ ) );
-        wp_enqueue_script( 'shortcodes-js', plugins_url( 'public/js/app-min.js', __FILE__ ), array('jquery'), '', true );
+        wp_enqueue_style( 'shortcodes-css', plugins_url( 'assets/css/main.css', __FILE__ ) );
+        wp_enqueue_script( 'shortcodes-js', plugins_url( 'assets/js/app-min.js', __FILE__ ), array('jquery'), '', true );
 
     }
 

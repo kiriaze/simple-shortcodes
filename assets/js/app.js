@@ -1,5 +1,5 @@
 // @codekit-prepend 'plugins/head.min.js'
-// @codekit-prepend 'plugins/owl2/js/owl.carousel.min.js'
+// @codekit-prepend 'plugins/owl2/owl.carousel.min.js'
 // @codekit-prepend 'plugins/jquery.magnific-popup.min.js'
 // @codekit-prepend 'plugins/mediaelement-and-player.min.js'
 // @codekit-prepend 'plugins/plugins.js'
@@ -234,11 +234,11 @@
         tabs.find('[data-tab-content]:first-of-type').addClass('active');
         tabs.find('[data-tab]:first-of-type').addClass('active');
 
-        var tabHeight = [];
+        // var tabHeight = [];
 
-        $('[data-tab-content]').each(function(){
-            tabHeight.push($(this).height());
-        });
+        // $('[data-tab-content]').each(function(){
+        //     tabHeight.push($(this).height());
+        // });
 
         SC.elems.tab.on('click', function(e) {
 
@@ -246,21 +246,14 @@
 
             if ( $(this).is('.active') ) return;
 
-            // var navIndex = $(this).index()+1;
-
             $(this)
                 .addClass('active')
-                .siblings(SC.elems.tab)
+                .siblings('[data-tab]')
                 .removeClass('active')
-                .siblings('[data-tab-content=' + $(this).data('tab') + ']')
-                // .siblings('[data-tab-content=' + navIndex + ']')
+                .siblings('[data-tab-content="' + $(this).data('tab') + '"]')
                 .addClass('active')
                 .siblings('[data-tab-content]')
                 .removeClass('active');
-
-            // $('[data-tab-content]').animate({
-            //     height: tabHeight[$(this).index()]
-            // }, 350, 'swing');
 
         });
     };
@@ -541,9 +534,9 @@
         // Load scripts in parallel but execute in order.
         head.js(
 
-            "/wp-includes/js/jquery/ui/jquery.ui.core.min.js",
-            "/wp-includes/js/jquery/ui/jquery.ui.widget.min.js",
-            "/wp-includes/js/jquery/ui/jquery.ui.accordion.min.js",
+            site_url + "/wp-includes/js/jquery/ui/jquery.ui.core.min.js",
+            site_url + "/wp-includes/js/jquery/ui/jquery.ui.widget.min.js",
+            site_url + "/wp-includes/js/jquery/ui/jquery.ui.accordion.min.js",
 
             function() {
 

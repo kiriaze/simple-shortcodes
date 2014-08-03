@@ -1,6 +1,6 @@
-@import url(../../public/fonts/font-awesome/font-awesome.min.css);
-@import url(../../public/fonts/foundation/foundation-icons.min.css);
-@import url(../../public/fonts/ionicons/ionicons.min.css);
+@import url(../fonts/font-awesome/font-awesome.min.css);
+@import url(../fonts/foundation/foundation-icons.min.css);
+@import url(../fonts/ionicons/ionicons.min.css);
 @import url(../js/plugins/owl2/assets/owl.carousel.css);
 .btn, .btn.success, .btn.info, .btn.warning, .btn.error, .btn.twitter, .btn.facebook, .btn.dribbble, .btn.instagram, .btn.linkedin, .btn.tumblr, .btn.google-plus, .btn.pinterest, .btn.white, .pricing-tables .pricing-tables-inner .package, .full-width-section {
   display: inline-block;
@@ -5564,7 +5564,7 @@ audio, canvas, video {
   -webkit-box-sizing: content-box !important;
      -moz-box-sizing: content-box !important;
           box-sizing: content-box !important;
-  margin: 0 0 0 -50%;
+  margin: 2rem 0 2rem -50%;
   padding: 2rem 50%;
   position: relative;
   z-index: 0; }
@@ -5582,6 +5582,27 @@ audio, canvas, video {
   .full-width-section.no-padding {
     padding-top: 0;
     padding-bottom: 0; }
+  .full-width-section.no-margin-top {
+    margin-top: 0%; }
+  .full-width-section.no-margin-bottom {
+    margin-bottom: 0%; }
+  .full-width-section.no-margin {
+    margin-top: 0;
+    margin-bottom: 0; }
+  .full-width-section.video {
+    padding-top: 10rem;
+    padding-bottom: 10rem; }
+    .full-width-section.video .video-wrapper {
+      position: absolute;
+      bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: -2;
+      overflow: hidden; }
+      .full-width-section.video .video-wrapper video {
+        width: 100% !important;
+        height: auto !important; }
   .full-width-section[class*='colored-overlay'] {
     color: white; }
     .full-width-section[class*='colored-overlay']:before {

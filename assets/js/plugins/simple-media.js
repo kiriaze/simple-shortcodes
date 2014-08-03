@@ -33,14 +33,14 @@
         // Public functions accessible to users
         init: function() {
             // SimpleMedia initializer
-            var mediaType = this.element.tagName.toLowerCase();
-            var dataAttr = this.element.getAttribute('data-media-src');
-            var mediaSource = dataAttr.match(/^([^]+)\{/)[1];
-            var fileExts = dataAttr.match(/\{([^]+)\}$/)[1].toString().replace(/\s/g, '').split(',');
+            var mediaType = this.element.tagName.toLowerCase(),
+                dataAttr = this.element.getAttribute('data-media-src'),
+                mediaSource = dataAttr.match(/^([^]+)\{/)[1],
+                fileExts = dataAttr.match(/\{([^]+)\}$/)[1].toString().replace(/\s/g, '').split(',');
 
             for (var i = 0; i < fileExts.length; i++) {
-                var extension = fileExts[i];
-                var source = document.createElement('source');
+                var extension = fileExts[i],
+                    source = document.createElement('source');
                 source.src = mediaSource + extension;
                 source.type = mediaType + '/' + extension;
                 this.element.appendChild(source);
