@@ -39,10 +39,10 @@
         SC.elems.slider         = $('[data-slider]');
         SC.elems.stats          = $('.stats');
     }
-	
+
 	SC.basics = function(){
 
-        // quick fix for icons 
+        // quick fix for icons
         // (needs work - current this finds anything that contains these letters within classes)
         jQuery('body').find('[class*=ion-]').filter(function() {
             return this.className.match(/\bion-/);
@@ -55,23 +55,23 @@
         jQuery('body').find('[class*=fi-]').filter(function() {
             return this.className.match(/\bfi-/);
         }).addClass('fi');
-        
+
 		SC.elems.mediaElements.simpleMedia();
 	}
 
 
     SC.fullWidthSections = function(){
-        
+
         function fullWidthSections(){
-            
+
             if( $('#main.boxed').length == 1 ) {
-                $justOutOfSight = ( ( ( parseInt($('[data-layout="grid"]').css('max-width') ) + 102 ) - parseInt( $('[data-layout="grid"]').css('max-width') ) ) / 2) 
+                $justOutOfSight = ( ( ( parseInt($('[data-layout="grid"]').css('max-width') ) + 102 ) - parseInt( $('[data-layout="grid"]').css('max-width') ) ) / 2)
             } else {
                 $justOutOfSight = ( ( $(window).width() - parseInt( $('[data-layout="grid"]').css('max-width') ) ) / 2 )
             }
 
             SC.elems.fullWidthSections.each(function() {
-                
+
                 if ( !$(this).parents().hasClass('has-sidebar') ) {
                     $(this).css({
                         'margin-left': ($justOutOfSight < 0) ? $justOutOfSight : -$justOutOfSight,
@@ -83,9 +83,9 @@
                         'margin-left': 0,
                         'padding-left': 0,
                         'padding-right': 0,
-                    }); 
+                    });
                 }
-                
+
             });
 
         }
@@ -98,7 +98,7 @@
 	SC.prettyPrint = function(){
 
     	prettyPrint();
-	
+
 	}
 
 	SC.alerts = function(){
@@ -159,14 +159,14 @@
 		SC.elems.toggles.each( function () {
 
 	        if( $(this).attr('data-id') == 'closed' ) {
-	            $(this).accordion({ 
-	            	header: '.simple-toggle-title', 
-	            	collapsible: true, 
+	            $(this).accordion({
+	            	header: '.simple-toggle-title',
+	            	collapsible: true,
 	            	active: false
 	        	})
 	        } else {
-	            $(this).accordion({ 
-	            	header: '.simple-toggle-title', 
+	            $(this).accordion({
+	            	header: '.simple-toggle-title',
 	            	collapsible: true
 	            })
 	        }
@@ -180,7 +180,7 @@
             $('.ui-state-active').find(icon).addClass('fa-angle-up');
         }
 
-        SC.elems.toggles.on('click',function(){    
+        SC.elems.toggles.on('click',function(){
             if ( $(this).find('.simple-toggle-title').is('.ui-state-active') ) {
                 $(this).find(icon).removeClass('fa-angle-down').addClass('fa-angle-up');
             } else {
@@ -197,7 +197,7 @@
 
         $('.accordion').accordion({
             header: '.simple-accordion-title',
-            collapsible: true, 
+            collapsible: true,
             heightStyle: "content"
         });
 
@@ -224,7 +224,7 @@
         tabs.find('[data-tab]:first-of-type').addClass('active');
 
         var tabHeight = [];
-        
+
         $('[data-tab-content]').each(function(){
             tabHeight.push($(this).height());
         })
@@ -259,7 +259,7 @@
         if( !SC.elems.modalLink.length ) return;
 
         SC.elems.modalLink.on('click', function(){
-            
+
             var $this           = $(this),
                 modalOpen       = $this.data('modal'),
                 modalTarget     = $('[data-modal-id=' + modalOpen + ']'),
@@ -288,7 +288,7 @@
     }
 
 	SC.mediaElements = function(){
-        
+
         if( !SC.elems.mediaElements.length ) return;
 
         SC.elems.mediaElements.each(function(){
@@ -367,7 +367,7 @@
             preloader: true,
             callbacks: {
                 beforeOpen: function() {
-                    // just a hack that adds mfp-anim class to markup 
+                    // just a hack that adds mfp-anim class to markup
                     this.st.image.markup = this.st.image.markup.replace('mfp-figure', 'mfp-figure mfp-with-anim');
                     // this.st.mainClass = this.st.el.attr('data-effect');
                     this.st.mainClass = this.st.el.attr('data-effect').length ? this.st.el.attr('data-effect') : 'mfp-fade-in-up';
@@ -385,7 +385,7 @@
             preloader: true,
             callbacks: {
                 beforeOpen: function() {
-                    // just a hack that adds mfp-anim class to markup 
+                    // just a hack that adds mfp-anim class to markup
                     this.st.iframe.markup = this.st.iframe.markup.replace('mfp-iframe-scaler', 'mfp-iframe-scaler mfp-with-anim');
                     this.st.mainClass = this.st.el.attr('data-effect').length ? this.st.el.attr('data-effect') : 'mfp-fade-in-up';
                 }
@@ -407,13 +407,13 @@
             var effect = data && (data != 'slide') ? data : false;
 
             $(item).owlCarousel({
-                
+
                 singleItem : true,
                 autoHeight: true,
 
                 slideSpeed : 300,
                 paginationSpeed : 400,
-                
+
                 transitionStyle: effect,
 
                 //Lazy load
@@ -421,7 +421,7 @@
                 lazyFollow : true,
                 lazyEffect : "fade",
 
-                // Responsive 
+                // Responsive
                 responsive: true,
                 responsiveRefreshRate : 200,
                 responsiveBaseWidth: window,
@@ -435,58 +435,58 @@
                 // Other
                 addClassActive : true,
             });
-            
+
         })
 
     }
 
     SC.carousel = function() {
-        
+
         if( !$('.carousel').length ) return;
 
         $('.carousel').owlCarousel({
             // Most important owl features
             items: $(this).data('items'),
             singleItem : false,
-         
+
             //Autoplay
             autoPlay : true,
             stopOnHover : true,
-         
+
             // // Navigation
             // navigation : true,
             // navigationText : ["prev","next"],
             // rewindNav : true,
-         
+
             // //Pagination
             // pagination : true,
             // paginationNumbers: true,
-         
-            // Responsive 
+
+            // Responsive
             responsive: true,
             responsiveRefreshRate : 200,
             responsiveBaseWidth: window,
-         
+
             // CSS Styles
             baseClass : "owl-carousel",
             theme : "owl-theme",
-         
+
             //Lazy load
             lazyLoad : true,
             lazyFollow : true,
             lazyEffect : "fade",
-         
+
             //Transitions
             transitionStyle : true,
 
             // Other
             addClassActive : true,
-         
+
         });
     }
 
     SC.stats = function(){
-        
+
         if( !SC.elems.stats.length ) return;
 
         var fired = 0;
@@ -532,7 +532,7 @@
 
             "/wp-includes/js/jquery/ui/jquery.ui.core.min.js",
             "/wp-includes/js/jquery/ui/jquery.ui.widget.min.js",
-            "/wp-includes/js/jquery/ui/jquery.ui.accordion.min.js", 
+            "/wp-includes/js/jquery/ui/jquery.ui.accordion.min.js",
 
             function() {
 
