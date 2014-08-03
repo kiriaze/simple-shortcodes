@@ -63,13 +63,13 @@
 // fade in up
 [data-modal-style='effect-1'] {
 	[data-modal-body] > div {
-		@extend %fadeOutDown !optional;
+		@extend .fadeOutDown;
 	}
 	&[data-modal-status="visible"],
 	&.visible{
 		[data-modal-body] {
 			> div {
-				@extend %fadeInUp !optional;
+				@extend .fadeInUp;
 			}
 		}
 	}
@@ -78,12 +78,12 @@
 // fade in scale
 [data-modal-style='effect-2'] {
 	[data-modal-body] > div {
-		@extend %fadeOutScale !optional;
+		@extend .fadeOutScale;
 	}
 	&[data-modal-status="visible"],
 	&.visible {
 		[data-modal-body] > div {
-			@extend %fadeInScale !optional;
+			@extend .fadeInScale;
 		}
 	}
 }
@@ -91,12 +91,12 @@
 // slide from right
 [data-modal-style='effect-3'] {
 	[data-modal-body] > div {
-		@extend %fadeOutRight !optional;
+		@extend .fadeOutRight;
 	}
 	&[data-modal-status="visible"],
 	&.visible {
 		[data-modal-body] > div {
-			@extend %fadeInRight !optional;
+			@extend .fadeInRight;
 		}
 	}
 }
@@ -104,12 +104,12 @@
 // slide from left
 [data-modal-style='effect-4'] {
 	[data-modal-body] > div {
-		@extend %fadeOutLeft !optional;
+		@extend .fadeOutLeft;
 	}
 	&[data-modal-status="visible"],
 	&.visible {
 		[data-modal-body] > div {
-			@extend %fadeInLeft !optional;
+			@extend .fadeInLeft;
 		}
 	}
 }
@@ -123,7 +123,7 @@
 			transform-style: preserve-3d;
 			transform: translateZ(600px) rotateX(20deg);
 			opacity: 0;
-			// @extend %fadeOutLeft !optional;
+			@extend .fadeOutLeft;
 		}
 	}
 	&[data-modal-status="visible"],
@@ -131,7 +131,7 @@
 		[data-modal-body] > div {
 			transform: translateZ(0px) rotateX(0deg);
 			opacity: 1;
-			// @extend %fadeInLeft !optional;
+			@extend .fadeInLeft;
 		}
 	}
 }
@@ -143,13 +143,13 @@
 		top: 0;
 		transform: translateX(-50%);
 		> div {
-			@extend %slideOutUp !optional;
+			@extend .slideOutUp;
 		}
 	}
 	&[data-modal-status="visible"],
 	&.visible {
 		[data-modal-body] > div {
-			@extend %slideInDown !optional;
+			@extend .slideInDown;
 			border-radius: 0 0 3px 3px;
 		}
 	}
@@ -160,12 +160,12 @@
 // super scaled
 [data-modal-style='effect-7'] {
 	[data-modal-body] > div {
-		@extend %fadeOutScaleBig !optional;
+		@extend .fadeOutScaleBig;
 	}
 	&[data-modal-status="visible"],
 	&.visible {
 		[data-modal-body] > div {
-			@extend %fadeInScaleBig !optional;
+			@extend .fadeInScaleBig;
 		}
 	}
 }

@@ -27,20 +27,20 @@
 	//	animate in
 	&.mfp-ready {
 		.mfp-with-anim {
-			@extend %fadeInUp !optional;
+			@extend .fadeInUp;
 		}
 		&.mfp-bg {
-			@extend %fadeIn !optional;
+			@extend .fadeIn;
 		}
 	}
 
 	//	animate out
 	&.mfp-removing {
 		.mfp-with-anim {
-			@extend %fadeOutDown !optional;
+			@extend .fadeOutDown;
 		}
 		&.mfp-bg {
-			@extend %fadeOut !optional;
+			@extend .fadeOut;
 		}
 	}
 
@@ -52,20 +52,20 @@
 	//	animate in
 	&.mfp-ready {
 		.mfp-with-anim {
-			@extend %fadeInLeft !optional;
+			@extend .fadeInLeft;
 		}
 		&.mfp-bg {
-			@extend %fadeIn !optional;
+			@extend .fadeIn;
 		}
 	}
 
 	//	animate out
 	&.mfp-removing {
 		.mfp-with-anim {
-			@extend %fadeOutRight !optional;
+			@extend .fadeOutRight;
 		}
 		&.mfp-bg {
-			@extend %fadeOut !optional;
+			@extend .fadeOut;
 		}
 	}
 
@@ -77,20 +77,20 @@
 	//	animate in
 	&.mfp-ready {
 		.mfp-with-anim {
-			@extend %fadeInScaleBig !optional;
+			@extend .fadeInScaleBig;
 		}
 		&.mfp-bg {
-			@extend %fadeIn !optional;
+			@extend .fadeIn;
 		}
 	}
 
 	//	animate out
 	&.mfp-removing {
 		.mfp-with-anim {
-			@extend %fadeOutScaleBig !optional;
+			@extend .fadeOutScaleBig;
 		}
 		&.mfp-bg {
-			@extend %fadeOut !optional;
+			@extend .fadeOut;
 		}
 	}
 

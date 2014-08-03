@@ -5,17 +5,44 @@
     max-width: 100%;
     background-size: cover;
     box-sizing: content-box!important;
-    margin: 0;
-    padding: 5rem 50%;
+    margin: 0 0 0 -50%;
+    padding: 2rem 50%;
     position: relative;
     z-index: 0;
 
-
-    @media (max-width: 400px) { 
-        max-width: 330px;
+    blockquote {
+        padding: 0;
     }
 
-	blockquote {
-		padding: 0;
-	}
+    &.dark {
+        background-color: #222;
+        color: white;
+        a {
+            color: white;
+        }
+    }
+
+    &.no-padding-top {
+        padding-top: 0%;
+    }
+    &.no-padding-bottom {
+        padding-bottom: 0%;
+    }
+    &.no-padding {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &[class*='colored-overlay'] {
+        color: white;
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    }
 }

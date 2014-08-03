@@ -8,7 +8,7 @@
  * Copyright: Copyright 2013 Constantine Kiriaze
  * License: GPL v2
  *
- * Usage: 
+ * Usage:
  * <audio data-media-src="song.{mp4, ogg, mp3}" controls></audio>
  * <video data-media-src="trailer.{mp4, ogv, webm}" controls></video>
  * Call simpleMedia passing your selector: $('[data-media-src]').simpleMedia();
@@ -25,6 +25,7 @@
     // SimpleMedia constructor
     function SimpleMedia(element, options) {
         this.element = element;
+        this.options = options;
         this.init();
     }
 
@@ -52,7 +53,7 @@
         return this.each(function() {
             // prevent multiple instantiations
             if (!$.data(this, 'plugin_' + simpleMedia)) {
-                $.data(this, 'plugin_' + simpleMedia, 
+                $.data(this, 'plugin_' + simpleMedia,
                     new SimpleMedia(this, options));
             }
         });
