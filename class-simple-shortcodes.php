@@ -16,15 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! class_exists( 'Simple_Shortcodes_Class' ) ) :
 
 class Simple_Shortcodes_Class {
-    
+
     function __construct() {
 
         //  Plugin Activation
         register_activation_hook( __FILE__, array( &$this, 'plugin_activation' ) );
-        
+
         //  Translation
         load_plugin_textdomain( 'simple', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-       
+
         //  Shortcodes
         add_action( 'init', array( &$this, 'shortcodes_init' ) );
 
@@ -36,7 +36,7 @@ class Simple_Shortcodes_Class {
     function shortcodes_init() {
 
         wp_localize_script( 'jquery', 'SimpleShortcodes', array('plugin_folder' => plugin_dir_url(__FILE__)) );
-                
+
         function simple_register_buttons( $buttons ) {
             array_push( $buttons, "|", 'simple_button' );
             return $buttons;
@@ -81,7 +81,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_button_shortcode') ) {
             function simple_button_shortcode( $atts, $content = null ) {
-                
+
                 extract( shortcode_atts( array(
                     'url'       =>  '',
                     'target'    =>  '',
@@ -103,8 +103,8 @@ class Simple_Shortcodes_Class {
 
 
                 // target
-                if ( $target == 'blank' || $target == '_blank' || $target == 'new' ) { 
-                    $target = ' target="_blank"'; 
+                if ( $target == 'blank' || $target == '_blank' || $target == 'new' ) {
+                    $target = ' target="_blank"';
                 } else {
                     $target = '';
                 }
@@ -112,18 +112,18 @@ class Simple_Shortcodes_Class {
                 // icons
                 $icon_type = '';
                 $padding = '';
-                if ($icon != "") { 
+                if ($icon != "") {
                     if ( $content ) $padding = ' style="padding-right: 10px;" ';
                     $icon_type .= ( $icon ) ? '<i class="' . $icon . '" ' . $padding . ' ></i>' : '' ;
 
                     if ( $class == 'flip' ) {
-                        $icon_type .= ( $icon ) ? '<i class="' . $icon . '" ' . $padding . ' ></i>' : '' ;    
+                        $icon_type .= ( $icon ) ? '<i class="' . $icon . '" ' . $padding . ' ></i>' : '' ;
                     }
                 }
 
                 // button
                 if ( !$content ) $class .= ' no-content';
-                
+
                 // modals
                 $modal = '';
                 if( $modal_id ) {
@@ -159,7 +159,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_icon_shortcodes') ) {
             function simple_icon_shortcodes( $atts ){
-                extract( shortcode_atts( array( 
+                extract( shortcode_atts( array(
                     'class'     =>  '',
                     'size'      =>  '',
                     'color'     =>  '',
@@ -174,20 +174,20 @@ class Simple_Shortcodes_Class {
 
                 if ( $size || $color ) :
                     $simple_icon = '<style>
-                        .'.$class.'.inline-sc:before { 
+                        .'.$class.'.inline-sc:before {
                             '.$font_size.'
                             '.$font_color.'
                         }
                         </style>';
                 endif;
 
-                if( $tooltip ) 
+                if( $tooltip )
                     $tooltip = ' data-toggle="tooltip" data-placement="'.$position.'" title="Coming Soon"';
 
                 $simple_icon .= '<i class="' . $class . ' inline-sc"'. $tooltip .'></i>';
 
                 return $simple_icon;
-                
+
             }
             add_shortcode( 'icon', 'simple_icon_shortcodes' );
         }
@@ -200,7 +200,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_callouts') ) {
 
-            function simple_callouts($atts, $content=null ) {  
+            function simple_callouts($atts, $content=null ) {
                 extract(shortcode_atts(array(
                     'title'     => '',
                     'icon'      => '',
@@ -211,7 +211,7 @@ class Simple_Shortcodes_Class {
                     'align'     => '',
                     'type'      => ''
                 ), $atts));
-                
+
                 if($icon != "") $icon = "<i class='$icon'></i>";
                 if($stacked != "") $stacked = 'stacked';
                 if($align != "") $align = "style='text-align: $align'";
@@ -221,7 +221,7 @@ class Simple_Shortcodes_Class {
                 if($size != "") $size = "font-size: $size;";
 
                 $type = $type ? $type : '';
-                
+
                 // add blockquotes to the content
                 $output  = '<div class="callout" '.$align.'>';
                 if($icon != "") :
@@ -231,7 +231,7 @@ class Simple_Shortcodes_Class {
                 $output .= '<h5 class="callout-content-title">'.$title."</h5>";
                 $output .= wpautop( $content );
                 $output .= '</div></div>';
-                
+
                 return $output;
             }
             add_shortcode('callout', 'simple_callouts');
@@ -306,14 +306,14 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_accordion') ) {
             function simple_accordion( $atts, $content = null ){
-                extract( shortcode_atts( array( 
+                extract( shortcode_atts( array(
                     ''  =>  ''
                 ), $atts ) );
-                
+
                 $html .= '<div class="accordion">';
                 $html .= do_shortcode( $content);
                 $html .= '</div>';
-                
+
                 return $html;
 
             }
@@ -371,7 +371,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_grid') ) {
             function simple_grid( $atts, $content = null ) {
-             
+
                 extract( shortcode_atts( array(
                     ''  =>  ''
                 ), $atts ) );
@@ -379,7 +379,7 @@ class Simple_Shortcodes_Class {
                 $output = '<div data-layout="grid">' . do_shortcode( $content ) . '</div>';
 
                 return apply_filters( 'simple_grid', $output );
-             
+
             }
             add_shortcode('grid', 'simple_grid');
             //  [grid]
@@ -393,7 +393,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_columns') ) {
             function simple_columns( $atts, $content = null ) {
-             
+
                 extract( shortcode_atts( array(
                     'span'      => '1',
                     'center'    => false
@@ -404,7 +404,7 @@ class Simple_Shortcodes_Class {
                 $output = '<div data-columns="'. $span .'"'.$center.'>' . do_shortcode( $content ) . '</div>';
 
                 return apply_filters( 'simple_columns', $output );
-             
+
             }
             add_shortcode('column', 'simple_columns');
             //  [column span="1"]Some content[/column]
@@ -477,7 +477,7 @@ class Simple_Shortcodes_Class {
                     'mp4'   =>  ''  // default wp behavior
                 ), $atts ) );
 
-                $mp4 = ($mp4) ? $mp4 : $src; 
+                $mp4 = ($mp4) ? $mp4 : $src;
                 $src = $mp4;
 
                 $src = substr($src, 0, -4);
@@ -515,46 +515,46 @@ class Simple_Shortcodes_Class {
         }
 
 
-        
+
         ////////////////////////////////////
         // M A P
         ////////////////////////////////////
         if ( !function_exists('simple_shortcodes_map') ) {
-            
+
             global $google_map_script_code;
-            
+
             function simple_shortcodes_map($atts) {
-                
+
                 global $google_map_script_code;
-                
+
                 extract( shortcode_atts( array(
-                    'latitude'          => '', 
-                    'longitude'         => '', 
-                    'width'             => '100%', 
-                    'height'            => '400px', 
+                    'latitude'          => '',
+                    'longitude'         => '',
+                    'width'             => '100%',
+                    'height'            => '400px',
                     'zoom'              => '16',
                     'infowindow_text'   => ''
                 ), $atts ) );
-                    
+
                 $google_map_code = "";
-                
-                if( strpos($height, 'px') || strpos($height, '%') ) { 
+
+                if( strpos($height, 'px') || strpos($height, '%') ) {
 
                 } else {
                     $height = $height.'px';
                 }
-                if( strpos($width, 'px') || strpos($width, '%') ) { 
+                if( strpos($width, 'px') || strpos($width, '%') ) {
 
                 } else {
                     $width = $width.'px';
                 }
-                
+
                 $infowindow_text = '<p>'.$infowindow_text.'</p>';
-                
+
                 $content_map_id = "content_map_".rand();
 
                 $google_map_code .= '<div id="'.$content_map_id.'" class="simple-shortcode-map" style="width:'.$width.';height:'.$height.';"></div>';
-                            
+
                 $google_map_script_code .= "
                 <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
                 <script type='text/javascript'>
@@ -565,47 +565,47 @@ class Simple_Shortcodes_Class {
                             center: myLatlng,
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         }
-                
+
                         var map = new google.maps.Map(document.getElementById('".$content_map_id."'), mapOptions);
-                        
+
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map,
                             title: ''
                         });";
-                        
+
                         if($infowindow_text) {
 
                             $google_map_script_code .= "
                             var contentString = '".$infowindow_text."';
-                    
+
                             var infowindow = new google.maps.InfoWindow({
                                 content: contentString
                             });
-                            
+
                             google.maps.event.addListener(marker, 'click', function() {
                               infowindow.open(map,marker);
-                            });";       
+                            });";
                         }
-                    
-                    $google_map_script_code .= " 
+
+                    $google_map_script_code .= "
                     })(jQuery)
                 </script>";
-                    
+
                 return $google_map_code;
 
             }
             add_shortcode('map', 'simple_shortcodes_map');
 
             /* Add Google Map Code to Footer */
-            function add_google_map_code() { 
+            function add_google_map_code() {
                 global $google_map_script_code;
                 if( isset($google_map_script_code) ) {
-                    if($google_map_script_code) { 
+                    if($google_map_script_code) {
                         echo $google_map_script_code;
-                    }       
+                    }
                 }
-                
+
             }
             add_action('wp_footer', 'add_google_map_code', 100);
         }
@@ -616,7 +616,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_lists') ) {
             function simple_lists( $atts, $content = null ){
-                extract( shortcode_atts( array( 
+                extract( shortcode_atts( array(
                     'type'     =>  ''
                 ), $atts ) );
 
@@ -626,7 +626,7 @@ class Simple_Shortcodes_Class {
                 $list .= "</div>";
 
                 return $list;
-                
+
             }
             add_shortcode( 'list', 'simple_lists' );
         }
@@ -637,7 +637,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_client_list') ) {
             function simple_client_list( $atts, $content = null ){
-                extract( shortcode_atts( array( 
+                extract( shortcode_atts( array(
                     'type'      =>  '', // list, grid, slider
                     'class'     =>  '', // specific for styling/js
                 ), $atts ) );
@@ -648,7 +648,7 @@ class Simple_Shortcodes_Class {
                 $list .= "</div>";
 
                 return $list;
-                
+
             }
             add_shortcode( 'clients', 'simple_client_list' );
         }
@@ -659,7 +659,7 @@ class Simple_Shortcodes_Class {
         ////////////////////////////////////
         if ( !function_exists('simple_stats') ) {
             function simple_stats( $atts, $content = null ){
-                extract( shortcode_atts( array( 
+                extract( shortcode_atts( array(
                     ''     =>  '',
                 ), $atts ) );
 
@@ -669,14 +669,14 @@ class Simple_Shortcodes_Class {
                 $html .= "</div>";
 
                 return $html;
-                
+
             }
             add_shortcode( 'stats', 'simple_stats' );
         }
 
         if ( !function_exists('simple_stat') ) {
             function simple_stat( $atts, $content = null ){
-                extract( shortcode_atts( array( 
+                extract( shortcode_atts( array(
                     'total'     =>  ''
 
                 ), $atts ) );
@@ -688,18 +688,18 @@ class Simple_Shortcodes_Class {
                 $html .= "</div>";
 
                 return $html;
-                
+
             }
             add_shortcode( 'stat', 'simple_stat' );
         }
-        
+
 
         ////////////////////////////////////
         // P A C K A G E S
         ////////////////////////////////////
         if ( !function_exists('simple_packages') ) {
             function simple_packages( $atts, $content = null ){
-                extract( shortcode_atts( array( 
+                extract( shortcode_atts( array(
                     ''  =>  ''
                 ), $atts ) );
 
@@ -713,7 +713,7 @@ class Simple_Shortcodes_Class {
                 }
 
                 if( count($packages) ){
-                    
+
                     $count = 0;
                     foreach( $packages as $package ){
                         $count++;
@@ -730,13 +730,13 @@ class Simple_Shortcodes_Class {
                     $html .= do_shortcode( $content);
                     $html .= '</div>';
                     $html .= '</div>';
-                    
+
                 } else {
                     $html .= do_shortcode( $content );
                 }
 
                 return $html;
-                
+
             }
             add_shortcode( 'packages', 'simple_packages' );
         }
@@ -778,7 +778,7 @@ class Simple_Shortcodes_Class {
             }
             add_shortcode( 'package', 'simple_package' );
         }
-        
+
 
         ////////////////////////////////////
         // S E C T I O N S
@@ -786,13 +786,13 @@ class Simple_Shortcodes_Class {
         if ( !function_exists('simple_section') ) {
 
             function simple_section( $atts, $content = null ) {
-                
+
                 extract( shortcode_atts( array(
-                    'tall'      =>  false,
                     'overlay'   =>  false,
                     'color'     =>  '',
                     'ratio'     =>  '',
                     'bg'        =>  '',
+                    'bg-position'=> '',
                     'cover'     =>  'true',
                     'stellar'   =>  false,
                     'padding'   =>  '',
@@ -801,13 +801,13 @@ class Simple_Shortcodes_Class {
 
                 $overlay    = $overlay ? ' colored-overlay shadow ' : false;
                 $context    = !$content ? ' no-content ' : '';
-                $tall      = $tall ? ' large ' : false;
                 $bg         = $bg ? $bg : '';
+                $position   = $bg ? $position : '';
                 $cover      = ($cover != 'true') ? 'background-size: auto;' : 'background-size: cover; background-repeat: no-repeat; background-position: center;';
                 $stellar    = $stellar ? ' stellar ' : false;
                 $ratio      = $ratio ? $ratio: '0.5';
                 $ratio      = $stellar ? "data-stellar-background-ratio='$ratio'" : '';
-                
+
                 $padding = $padding ? $padding : '';
                 if ($padding == "top") $padding = " padding-top ";
                 if ($padding == "none") $padding = " padding-none ";
@@ -819,7 +819,7 @@ class Simple_Shortcodes_Class {
                 $newColor = 'rgba(' . implode(",", $newColor) .');';
 
                 $html = '';
-                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $tall . $overlay . $context . $padding . '" '.$ratio.' style="background-image: url('. $bg .'); ' . $newColor . $cover . '">';
+                $html .= '<section id="colored-'.$id.'" class="full-width-section ' . $class . $stellar . $overlay . $context . $padding . '" '.$ratio.' style="background-image: url('. $bg .'); background-position:'.$position.'; ' . $newColor . $cover . '">';
                 if ( $color ) {
                     $html .= "<style>.colored-overlay#colored-$id:before{
                                 background-color: $newColor;
@@ -839,11 +839,11 @@ class Simple_Shortcodes_Class {
         if ( !function_exists('simple_hr') ) {
 
             function simple_hr( $atts ) {
-                
+
                 extract(shortcode_atts(array(
                     '' => '',
                 ), $atts));
-                
+
                 $html = '<br style="display: inline-block; width: 100%; content: \'\';" /><hr />'; // prepending ib fix inline issues
 
                 return $html;
@@ -858,11 +858,11 @@ class Simple_Shortcodes_Class {
         if ( !function_exists('simple_br') ) {
 
             function simple_br( $atts ) {
-                
+
                 extract(shortcode_atts(array(
                     '' => '',
                 ), $atts));
-                
+
                 $html = '<br />';
 
                 return $html;
@@ -943,7 +943,7 @@ class Simple_Shortcodes_Class {
                 $order      = ($filter == 'recent') ? 'DESC' : '';
                 $popular    = ($filter == 'popular') ? '' : ''; // hook into simple_likes
                 $related    = ($filter == 'related') ? true : false;
-                
+
                 if ( $related ) {
                     $type = get_post_type();
                 }
@@ -961,7 +961,7 @@ class Simple_Shortcodes_Class {
                     );
                 }
 
-                $args = array( 
+                $args = array(
                     'order'             => $order,
                     'post_type'         => $type,
                     'posts_per_page'    => $count,
@@ -977,9 +977,9 @@ class Simple_Shortcodes_Class {
                     $tags       = wp_get_post_tags($post->ID);
                     $categories = get_the_category($post->ID);
                     $terms      = wp_get_post_terms($post->ID, $taxonomy);
-                      
-                    if ($tags) {  
-                        $tag_ids = array();  
+
+                    if ($tags) {
+                        $tag_ids = array();
                         foreach( $tags as $individual_tag ) $tag_ids[] = $individual_tag->term_id;
                         $relatedArgs = array(
                             'tag__in'       => $tag_ids,
@@ -997,8 +997,8 @@ class Simple_Shortcodes_Class {
                     }
 
                     if ($terms) {
-                        $term_ids = array();  
-                        foreach( $terms as $individual_term ) $term_ids[] = $individual_term->term_id;  
+                        $term_ids = array();
+                        foreach( $terms as $individual_term ) $term_ids[] = $individual_term->term_id;
                         $relatedArgs = array(
                             'tax_query' => array(
                                 array(
@@ -1017,7 +1017,7 @@ class Simple_Shortcodes_Class {
 
                 $posts = new WP_Query($args);
 
-                if ( $posts->have_posts() ) : 
+                if ( $posts->have_posts() ) :
 
                     $html = '';
 
@@ -1043,7 +1043,7 @@ class Simple_Shortcodes_Class {
                             $html .= '</figure>';
                             $html .= '</a>';
                         endif;
-                        
+
                         $html .= '
                             <header>
                                 <'.$titletag.' class="entry-title">
@@ -1051,7 +1051,7 @@ class Simple_Shortcodes_Class {
                                 </'.$titletag.'>
                             </header>
                         ';
-                        
+
                         $html .= '<p>'.truncate_text( get_the_excerpt(), 50, simple_excerpt_more() ).'</p>';
 
                         $html .= '
@@ -1059,14 +1059,14 @@ class Simple_Shortcodes_Class {
                                 '.$post_meta.'
                             </footer>
                         ';
-                        
+
                         $html .= '</li>';
                         $html .= "\n";
 
                     endwhile;
 
                     if( $posts->found_posts % $divider != 0 ) :
-                            
+
                         for ($i=0; $i < $divider - 2; $i++) {
                             $html .= '<article class="filler" data-columns="'.$divider.'"></article>';
                             $html .= "\n";
@@ -1077,7 +1077,7 @@ class Simple_Shortcodes_Class {
                     $html .= '</ul>';
                     $html .= '</div>';
 
-                endif; 
+                endif;
 
                 wp_reset_postdata();
 
@@ -1094,7 +1094,7 @@ class Simple_Shortcodes_Class {
 
     //  Shortcode Scripts / Styles
     function load_scripts() {
-        wp_enqueue_style( 'shortcodes-css', plugins_url( 'public/css/main.css', __FILE__ ) );        
+        wp_enqueue_style( 'shortcodes-css', plugins_url( 'public/css/main.css', __FILE__ ) );
         wp_enqueue_script( 'shortcodes-js', plugins_url( 'public/js/min.js', __FILE__ ), array('jquery'), '', true );
     }
 

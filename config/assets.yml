@@ -1,11 +1,12 @@
-package_assets: on
+package_assets: off
 embed_assets: off
 compress_assets: on
 gzip_assets: off
 javascript_compressor: uglifier
 javascripts:
   min:
-    - assets/js/plugins/owl-carousel/js/owl.carousel.min.js
+    - assets/js/plugins/head.min.js
+    - assets/js/plugins/owl2/js/owl.carousel.min.js
     - assets/js/plugins/jquery.magnific-popup.min.js
     - assets/js/plugins/mediaelement-and-player.min.js
     - assets/js/plugins/plugins.js
