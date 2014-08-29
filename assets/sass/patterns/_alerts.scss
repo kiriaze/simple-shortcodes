@@ -1,0 +1,64 @@
+.alert {
+	position: relative;
+	z-index: 1;
+
+	font-weight: 600;
+	padding: 10px 15px;
+	margin-bottom: 20px;
+	background-color: #fcf8e3;
+
+	&.alt {
+		border-left: 4px solid #3498DB;
+		box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1);
+		background: white;
+	}
+}
+
+.alert,
+.alert h4 {
+	color: #c09853;
+}
+.alert h4 {
+	margin: 0;
+}
+.alert .close {
+	position: relative;
+	float: right;
+	color: rgba(0, 0, 0, 0.19);
+	font-weight: 800;
+	font-size: 1.2rem;
+}
+.alert-success {
+	background-color: #2ecc71;
+	color: white;
+}
+.alert-success h4 {
+	color: #468847;
+}
+.alert-danger,
+.alert-error {
+	background-color: #e74c3c;
+	color: white;
+}
+.alert-danger h4,
+.alert-error h4 {
+	color: #b94a48;
+}
+.alert-info {
+	background-color: #3498DB;
+	color: white;
+}
+.alert-info h4 {
+	color: #3a87ad;
+}
+.alert-block {
+	padding-top: 14px;
+	padding-bottom: 14px;
+}
+.alert-block > p,
+.alert-block > ul {
+	margin-bottom: 0;
+}
+.alert-block p + p {
+	margin-top: 5px;
+}

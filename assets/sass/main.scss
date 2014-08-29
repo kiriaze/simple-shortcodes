@@ -1,0 +1,20 @@
+%ib {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    font-size: 1rem; // reset
+    text-align: left; // reset
+}
+
+// Animation Variables
+$duration: .35s; // was .15, upped for hero transition - or change via js
+$delay: .2s;
+$transition: all $duration cubic-bezier(0.2, .4, .1, 1); // thumbnail animations
+
+@import
+    'vendor/animate/animate',
+	'../fonts/font-awesome/font-awesome.min.css',
+	'../fonts/foundation/foundation-icons.min.css',
+	'../fonts/ionicons/ionicons.min.css',
+	'../js/plugins/owl2/assets/owl.carousel.css',
+	'patterns/patterns';

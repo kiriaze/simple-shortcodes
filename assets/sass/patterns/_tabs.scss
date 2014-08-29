@@ -1,0 +1,44 @@
+[data-type="tabs"] {
+	background: white;
+	[data-tab] {
+	    display: inline-block;
+	    padding: 10px 20px;
+	    &.active,
+		&:hover {
+		    background: #DDD;
+		    color: #222;
+		}
+	}
+
+	[data-tab-content] {
+	    display: none;
+	    opacity: 0;
+	    background: none;
+		color: #444;
+		padding: 20px;
+		&.active {
+		    display: block;
+		    @extend .fadeIn;
+		}
+	}
+
+	&.alt {
+		[data-tab] {
+			&.active,
+			&:hover {
+				border-top: 4px solid #3498DB;
+				box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1);
+				background: white;
+				color: #3498DB;
+			}
+		}
+
+		[data-tab-content] {
+			box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1);
+			background: white;
+			color: #3498DB;
+		}
+	}
+
+}
+

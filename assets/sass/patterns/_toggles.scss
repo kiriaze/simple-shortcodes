@@ -1,0 +1,58 @@
+.simple-toggle,
+.simple-accordion {
+
+	.simple-toggle-title,
+	.simple-accordion-title {
+		display: block;
+		font: bold 13px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+		color: #2A3034;
+		text-transform: uppercase;
+		background: #FFF;
+		padding: 15px 15px 15px 25px;
+		border-right: 2px solid #BDC3C7;
+		cursor: pointer;
+		outline: none;
+		position: relative;
+	    transition: all 0.3s;
+
+		&:hover {
+			color: #2A3034;
+		}
+
+		&:hover,
+		&.ui-state-active,
+		&.ui-state-active:hover {
+			background: #F6F8FB;
+		}
+
+	}
+
+	&:last-child .simple-toggle-title{
+
+	}
+
+	.simple-toggle-inner,
+	.simple-accordion-inner {
+		background: #FFF;
+	}
+
+	.target {
+		color: #2A3034;
+		margin: 0;
+		display: block;
+		height: 100%;
+		padding: 15px 15px 15px 25px;
+	}
+
+	span.ui-icon {
+	    width: 10px;
+	    height: 10px;
+	    position: absolute;
+	    right: 20px;
+	    font-size: .9rem;
+	}
+
+	.ui-state-active .ui-icon {
+
+	}
+}

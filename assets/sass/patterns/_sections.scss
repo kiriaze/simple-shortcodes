@@ -1,0 +1,85 @@
+.full-width-section {
+
+    @extend %ib;
+    width: 100%;
+    max-width: 100%;
+    background-size: cover;
+    box-sizing: content-box;
+    margin: 2rem 0 2rem -50%;
+    padding: 2rem 50%;
+    position: relative;
+    z-index: 0;
+
+    blockquote {
+        padding: 0;
+    }
+
+    &.dark {
+        background-color: #222;
+        color: white;
+        a {
+            color: white;
+        }
+    }
+
+    &.no-padding-top {
+        padding-top: 0%;
+    }
+    &.no-padding-bottom {
+        padding-bottom: 0%;
+    }
+    &.no-padding {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &.no-margin-top {
+        margin-top: 0%;
+    }
+    &.no-margin-bottom {
+        margin-bottom: 0%;
+    }
+    &.no-margin {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    &.video {
+        padding-top: 10rem;
+        padding-bottom: 10rem;
+        .video-wrapper {
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: -2; // beneath overlay
+            overflow: hidden;
+            video {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+    }
+
+    &.no-stretch {
+        margin-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+        background-size: cover;
+        box-sizing: border-box;
+    }
+
+    &[class*='colored-overlay'] {
+        color: white;
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    }
+}
