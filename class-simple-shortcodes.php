@@ -1107,14 +1107,14 @@ class Simple_Shortcodes_Class {
                     if( $posts->found_posts % $divider != 0 ) :
 
                         for ($i=0; $i < $divider - 2; $i++) {
-                            $html .= '<article class="filler" data-columns="'.$divider.'"></article>';
+
+                            $html .= '<li class="filler" data-columns="'.$divider.'"></li>';
                             $html .= "\n";
                         }
 
                     endif;
 
                     $html .= '</ul>';
-                    $html .= '</div>';
 
                 endif;
 

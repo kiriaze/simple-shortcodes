@@ -250,7 +250,11 @@
                 .addClass('active')
                 .siblings('[data-tab]')
                 .removeClass('active')
+
                 .siblings('[data-tab-content="' + $(this).data('tab') + '"]')
+
+                // .parents('[data-type="tabs"]').find('[data-tab-content="' + $(this).data('tab') + '"]')
+
                 .addClass('active')
                 .siblings('[data-tab-content]')
                 .removeClass('active');

@@ -3,7 +3,11 @@
 Plugin Name:     Simple Shortcodes
 Plugin URI:      https://github.com/kiriaze/simple-shortcodes
 Description:     Simple Shortcodes Description
+<<<<<<< HEAD
 Version:         1.0.1
+=======
+Version:         1.1.0
+>>>>>>> 64f7eb9618919f3d2affb11a37d86730c0341bc2
 Author:          Constantine Kiriaze (@kiriaze)
 Author URI:      http://getsimple.io/about
 License:         GNU General Public License v2 or later
