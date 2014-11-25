@@ -1,0 +1,13 @@
+{
+  "name": "simple-shortcodes",
+  "description": "WordPress Plugin description",
+  "type": "wordpress-plugin",
+  "homepage": "http://getsimple.io",
+  "authors": [
+    {
+      "name": "Constantine Kiriaze",
+      "email": "hello@getsimple.io",
+      "homepage": "http://getsimple.io"
+    }
+  ]
+}
