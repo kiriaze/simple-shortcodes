@@ -242,6 +242,8 @@
 
         SC.elems.tab.on('click', function(e) {
 
+            console.log('click');
+
             e.preventDefault();
 
             if ( $(this).is('.active') ) return;
@@ -251,9 +253,9 @@
                 .siblings('[data-tab]')
                 .removeClass('active')
 
-                .siblings('[data-tab-content="' + $(this).data('tab') + '"]')
+                // .siblings('[data-tab-content="' + $(this).data('tab') + '"]')
 
-                // .parents('[data-type="tabs"]').find('[data-tab-content="' + $(this).data('tab') + '"]')
+                .parents('[data-type="tabs"]').find('[data-tab-content="' + $(this).data('tab') + '"]')
 
                 .addClass('active')
                 .siblings('[data-tab-content]')
