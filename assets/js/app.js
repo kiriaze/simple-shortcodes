@@ -540,9 +540,9 @@
         // Load scripts in parallel but execute in order.
         head.js(
 
-            site_url + "/wp-includes/js/jquery/ui/jquery.ui.core.min.js",
-            site_url + "/wp-includes/js/jquery/ui/jquery.ui.widget.min.js",
-            site_url + "/wp-includes/js/jquery/ui/jquery.ui.accordion.min.js",
+            site_url + "/wp-includes/js/jquery/ui/core.min.js",
+            site_url + "/wp-includes/js/jquery/ui/widget.min.js",
+            site_url + "/wp-includes/js/jquery/ui/accordion.min.js",
 
             function() {
 
