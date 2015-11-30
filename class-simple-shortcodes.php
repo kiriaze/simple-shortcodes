@@ -944,6 +944,7 @@ class Simple_Shortcodes_Class {
         if ( !function_exists('simple_post_type') ) {
             //  Simple Post Types
             function simple_post_type( $atts ) {
+
                 extract(shortcode_atts(array(
                     'type'      => 'post', // events, testimonials, etc, and formats as well
                     'format'    => '', // gallery, audio, video, etc. Note: standard doesnt work, setup array if usecase
@@ -963,7 +964,7 @@ class Simple_Shortcodes_Class {
                 $metaArr = explode(', ', $meta);
                 $metaVal = array_fill_keys(array_keys(array_flip($metaArr)), 'true');
 
-                $post_meta = apply_filters('simple_post_meta', array(
+                $post_meta = $meta ? apply_filters('simple_post_meta', array(
                     'author'        => isset($metaVal['author']),
                     'date'          => isset($metaVal['date']),
                     'tags'          => isset($metaVal['tags']),
@@ -973,9 +974,9 @@ class Simple_Shortcodes_Class {
                     'views'         => isset($metaVal['views']),
                     'comments'      => isset($metaVal['comments']),
                     'icons'         => isset($metaVal['icons'])
-                ));
+                )) : '';
 
-                $count = ($count) ? $count : -1;
+                $count   = ($count) ? $count : -1;
                 $divider = ($divider) ? $divider : 4;
 
                 $tag        = ($filter == 'featured') ? 'featured' : '';
@@ -987,7 +988,7 @@ class Simple_Shortcodes_Class {
                     $type = get_post_type();
                 }
 
-                $sliderClass = ($slider != 'false') ? ' carousel' : '';
+                $sliderClass = ($slider != 'false') ? ' owl-carousel' : '';
 
                 $tax_query = array('relation' => 'AND');
 
@@ -995,8 +996,8 @@ class Simple_Shortcodes_Class {
                     $format = 'post-format-' . $format;
                     $tax_query[] =  array(
                         'taxonomy' => 'post_format',
-                        'field' => 'slug',
-                        'terms' => array( $format )
+                        'field'    => 'slug',
+                        'terms'    => array( $format )
                     );
                 }
 
@@ -1011,7 +1012,7 @@ class Simple_Shortcodes_Class {
 
                 if ( $related ) {
 
-                    $taxonomy = 'work_types';
+                    $taxonomy = 'product_brand';
 
                     $tags       = wp_get_post_tags($post->ID);
                     $categories = get_the_category($post->ID);
@@ -1104,15 +1105,15 @@ class Simple_Shortcodes_Class {
 
                     endwhile;
 
-                    if( $posts->found_posts % $divider != 0 ) :
+                    // if ( $posts->found_posts % $divider != 0 ) :
 
-                        for ($i=0; $i < $divider - 2; $i++) {
+                    //     for ($i=0; $i < $divider - 2; $i++) {
 
-                            $html .= '<li class="filler" data-columns="'.$divider.'"></li>';
-                            $html .= "\n";
-                        }
+                    //         $html .= '<li class="filler" data-columns="'.$divider.'"></li>';
+                    //         $html .= "\n";
+                    //     }
 
-                    endif;
+                    // endif;
 
                     $html .= '</ul>';
 
@@ -1135,6 +1136,10 @@ class Simple_Shortcodes_Class {
     function load_scripts() {
 
         wp_enqueue_style( 'shortcodes-css', plugins_url( 'assets/css/main.css', __FILE__ ) );
+
+        // needed for accordions - shortcodes
+        wp_enqueue_script('jquery-ui-accordion');
+
         wp_enqueue_script( 'shortcodes-js', plugins_url( 'assets/js/app-min.js', __FILE__ ), array('jquery'), '', true );
 
     }
