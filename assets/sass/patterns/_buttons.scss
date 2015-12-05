@@ -2,7 +2,7 @@
 ============================================ */
 @mixin btn($color:#000) {
     @extend %ib;
-    background: $color;
+    background-color: $color;
     color: white;
 
     // override <button>'s
@@ -14,7 +14,7 @@
     white-space: nowrap;
 
     &:hover{
-        background: darken($color, 10);
+        background-color: darken($color, 10);
         color: white;
     }
 }

@@ -2,14 +2,14 @@ $tab-color: #f00;
 
 [data-type="tabs"] {
 
-	background: white;
+	background-color: white;
 
 	[data-tab] {
 		padding: 10px 20px;
 		display: inline-block;
 		&.active,
 		&:hover {
-			background: #DDD;
+			background-color: #DDD;
 			color: #222;
 		}
 	}
@@ -17,7 +17,7 @@ $tab-color: #f00;
 	[data-tab-content] {
 		display: none;
 		opacity: 0;
-		background: none;
+		background-color: none;
 		color: #444;
 		&.active {
 			display: block;
@@ -36,13 +36,13 @@ $tab-color: #f00;
 			&:hover {
 				border-color: $tab-color;
 				box-shadow: 0px -1px 1px 0px rgba(0,0,0,0.1);
-				background: white;
+				background-color: white;
 				color: $tab-color;
 			}
 		}
 		[data-tab-content] {
 			box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1);
-			background: white;
+			background-color: white;
 		}
 	}
 

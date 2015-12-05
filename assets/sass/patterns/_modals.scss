@@ -27,7 +27,7 @@
 		> div{
 			overflow: hidden;
 			header, footer{
-				background: whitesmoke;
+				background-color: whitesmoke;
 				padding: 0 40px;
 				text-align: center;
 			}
@@ -37,7 +37,7 @@
 			.modal-inner{
 				text-align: center;
 				color: #444;
-				background: #fff;
+				background-color: #fff;
 				position: relative;
 				padding: 15px 40px 30px;
 			}
@@ -178,7 +178,7 @@
 			transform: scale(0.8);
 			opacity: 0;
 			header, footer, .modal-inner{
-				background: transparent;
+				background-color: transparent;
 				color: white;
 			}
 		}
